@@ -181,7 +181,7 @@ def trim_room_tree(room_tree: Tree, room_parent: Node, avail_room_indecies: list
                     not in avail_room_indecies:
                 leaf.data.is_terminus = True
 
-    for leaf in room_tree.leaves():
+    for leaf in room_tree.leaves():  # Can this function silently add connection subverts?
         if leaf.is_root():
             leaf.data.is_terminus = True
 

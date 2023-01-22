@@ -73,66 +73,66 @@ BACKUPS = (
         "connections": (
         )
     },
-    {
-        "id": "MAP_MT_EMBER_RUBY_PATH_B3F",
-        "alias": "MtEmber_RubyPath_B3F_A",
-        "key_items": (),
-        "file_name": "MtEmber_RubyPath_B3F",
-        "warps": (
-            {
-                "x": 1,
-                "y": 4,
-                "elevation": 0,
-                "dest_map": "MAP_MT_EMBER_RUBY_PATH_B2F",
-                "dest_warp_id": 1,
-                "pair_id": 308
-            },
-        ),
-        "connections": (
-            ("MtEmber_RubyPath_B3F_B", ("hm04_strength",)),
-            ("MtEmber_RubyPath_B3F_C", ("hm04_strength",)),
-        )
-    },
-    {
-        "id": "MAP_MT_EMBER_RUBY_PATH_B3F",
-        "alias": "MtEmber_RubyPath_B3F_B",
-        "key_items": (),
-        "file_name": "MtEmber_RubyPath_B3F",
-        "warps": (
-            {
-                "x": 5,
-                "y": 19,
-                "elevation": 3,
-                "dest_map": "MAP_MT_EMBER_RUBY_PATH_B4F",
-                "dest_warp_id": 1,
-                "pair_id": 309
-            },
-        ),
-        "connections": (
-            ("MtEmber_RubyPath_B3F_A", ("hm04_strength",)),
-            ("MtEmber_RubyPath_B3F_C", ("hm04_strength",)),
-        )
-    },
-    {
-        "id": "MAP_MT_EMBER_RUBY_PATH_B3F",
-        "alias": "MtEmber_RubyPath_B3F_C",
-        "key_items": (),
-        "file_name": "MtEmber_RubyPath_B3F",
-        "warps": (
-            {
-                "x": 19,
-                "y": 19,
-                "elevation": 3,
-                "dest_map": "MAP_MT_EMBER_RUBY_PATH_B1F_STAIRS",
-                "dest_warp_id": 0,
-                "pair_id": 310
-            },
-        ),
-        "connections": (
-            ("MtEmber_RubyPath_B3F_A", ("hm04_strength",)),
-            ("MtEmber_RubyPath_B3F_B", ("hm04_strength",)),
-        )
-    },
+    # {
+    #     "id": "MAP_MT_EMBER_RUBY_PATH_B3F",
+    #     "alias": "MtEmber_RubyPath_B3F_A",
+    #     "key_items": (),
+    #     "file_name": "MtEmber_RubyPath_B3F",
+    #     "warps": (
+    #         {
+    #             "x": 1,
+    #             "y": 4,
+    #             "elevation": 0,
+    #             "dest_map": "MAP_MT_EMBER_RUBY_PATH_B2F",
+    #             "dest_warp_id": 1,
+    #             "pair_id": 308
+    #         },
+    #     ),
+    #     "connections": (
+    #         ("MtEmber_RubyPath_B3F_B", ("hm04_strength",)),
+    #         ("MtEmber_RubyPath_B3F_C", ("hm04_strength",)),
+    #     )
+    # },
+    # {
+    #     "id": "MAP_MT_EMBER_RUBY_PATH_B3F",
+    #     "alias": "MtEmber_RubyPath_B3F_B",
+    #     "key_items": (),
+    #     "file_name": "MtEmber_RubyPath_B3F",
+    #     "warps": (
+    #         {
+    #             "x": 5,
+    #             "y": 19,
+    #             "elevation": 3,
+    #             "dest_map": "MAP_MT_EMBER_RUBY_PATH_B4F",
+    #             "dest_warp_id": 1,
+    #             "pair_id": 309
+    #         },
+    #     ),
+    #     "connections": (
+    #         ("MtEmber_RubyPath_B3F_A", ("hm04_strength",)),
+    #         ("MtEmber_RubyPath_B3F_C", ("hm04_strength",)),
+    #     )
+    # },
+    # {
+    #     "id": "MAP_MT_EMBER_RUBY_PATH_B3F",
+    #     "alias": "MtEmber_RubyPath_B3F_C",
+    #     "key_items": (),
+    #     "file_name": "MtEmber_RubyPath_B3F",
+    #     "warps": (
+    #         {
+    #             "x": 19,
+    #             "y": 19,
+    #             "elevation": 3,
+    #             "dest_map": "MAP_MT_EMBER_RUBY_PATH_B1F_STAIRS",
+    #             "dest_warp_id": 0,
+    #             "pair_id": 310
+    #         },
+    #     ),
+    #     "connections": (
+    #         ("MtEmber_RubyPath_B3F_A", ("hm04_strength",)),
+    #         ("MtEmber_RubyPath_B3F_B", ("hm04_strength",)),
+    #     )
+    # },
     {
         "id": "MAP_NAVEL_ROCK_FORK",
         "alias": "NavelRock_Fork",
