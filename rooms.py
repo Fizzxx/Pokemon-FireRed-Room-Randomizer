@@ -4332,7 +4332,7 @@ ROOMS = (
 				"y": 5,
 				"elevation": 3,
 				"dest_map": "MAP_ROUTE8",
-				# "dest_warp_id": 1,
+				"dest_warp_id": 1,
 				# "req_items": ("tea",),
 				# "requires_all": True,
 				"pair_id": 131  # --------------------------------------------------------------

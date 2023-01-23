@@ -2,7 +2,6 @@ import random
 from map_state import MapState
 from rooms import ROOMS as ROOMS
 from backup_rooms import BACKUPS
-from roomsOld import ROOMS as ROOMSOLD
 from treelib import Tree
 from rando_utils import link_doors, inject_warp_info, \
     room_quality, is_good_entry, create_room_node, create_warp_node, \
@@ -12,9 +11,9 @@ from rando_utils import link_doors, inject_warp_info, \
 
 def main():
     seed = random.randrange(999999999)  # Randomly generates the seed.
-    seed = 12634  # Debug use; enter a specified seed. 16 is fucked
+    seed = 1263  # Debug use; enter a specified seed. 16 is fucked
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
-    random.seed(a=seed)  # Loads the seed into the module "random".4
+    random.seed(a=seed)  # Loads the seed into the module "random".
 
     rooms_in_rando = Tree()  # Initializes the randomizer's map object.
     rando_state = MapState()  # Initializes the map state.
@@ -46,9 +45,11 @@ def main():
             break
 
     creating_tree = True  # Initializes the flag for the main loop.
+    insert_map_data = False
     while creating_tree:
         if rando_state.halt_process():  # Determines if the process needs to halt prematurely.
             print('HALTED')
+            insert_map_data = True
             break
 
         # Displays the Current map state
@@ -109,7 +110,7 @@ def main():
                                   exit_room['alias'], ',', exit_warp['dest_map'][4:])
 
                             # The leaf is updated with the selected exit room and exit warp
-                            leaf.data.add_exit_warp(warp=exit_warp)
+                            leaf.data.add_exit_warp(exit_warp=exit_warp, exit_room=exit_room)
                             leaf.data.add_exit_warp_pairs(room=exit_room)
 
                             room_tree = build_room(room=exit_room)  # The subtree is built.
@@ -130,7 +131,7 @@ def main():
                                   exit_room['alias'], ',', exit_warp['dest_map'][4:])
 
                             # The leaf is updated with the selected exit room and exit warp
-                            leaf.data.add_exit_warp(warp=exit_warp)
+                            leaf.data.add_exit_warp(exit_warp=exit_warp, exit_room=exit_room)
                             leaf.data.add_exit_warp_pairs(room=exit_room)
 
                             room_tree = build_room(room=exit_room)  # The subtree is built.
@@ -191,6 +192,12 @@ def main():
             creating_tree = False
     print(f'\nSEED = {orig_seed}')
     rooms_in_rando.show(data_property="node_alias")
+
+    if insert_map_data:
+        for node in rooms_in_rando.all_nodes():
+            if rooms_in_rando.depth(node) % 2 == 1:
+                if node.data.is_warp:
+                    link_doors(node.data)
 
 
 if __name__ == "__main__":
