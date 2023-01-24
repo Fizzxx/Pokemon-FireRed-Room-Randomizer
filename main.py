@@ -11,7 +11,7 @@ from rando_utils import link_doors, inject_warp_info, \
 
 def main():
     seed = random.randrange(999999999)  # Randomly generates the seed.
-    seed = 1263  # Debug use; enter a specified seed. 16 is fucked
+    seed = 833  # Debug use; enter a specified seed.
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
     random.seed(a=seed)  # Loads the seed into the module "random".
 
@@ -48,7 +48,7 @@ def main():
     insert_map_data = False
     while creating_tree:
         if rando_state.halt_process():  # Determines if the process needs to halt prematurely.
-            print('HALTED')
+            print('\nFINAL STATE AND MAP')
             insert_map_data = True
             break
 
@@ -57,8 +57,8 @@ def main():
         print('SEED = ', orig_seed)
         print('Current Map State:')
         rando_state.display_state()
-        print(f'\n{avail_room_indecies = }')
-        print(f'{avail_backups_indecies = }')
+        print(f'\n{len(avail_room_indecies)} {avail_room_indecies = }')
+        print(f'{len(avail_backups_indecies)} {avail_backups_indecies = }')
         print('----------------------')
         print('Start of Tree:\n')
         rooms_in_rando.show(data_property="node_alias")  # Displays the map tree to console using the "node_alias" as a node label.
@@ -190,10 +190,19 @@ def main():
         if is_done(rooms_in_rando):
             print('FINISHED!')
             creating_tree = False
-    print(f'\nSEED = {orig_seed}')
+
+    print('Start of Tree:\n')
     rooms_in_rando.show(data_property="node_alias")
+    print('----------------------\n')
+    print('SEED = ', orig_seed)
+    print('Current Map State:')
+    rando_state.display_state()
+    print(f'\n{len(avail_room_indecies)} {avail_room_indecies = }')
+    print(f'{len(avail_backups_indecies)} {avail_backups_indecies = }')
 
     if insert_map_data:
+        print('----------------------\n')
+        print("Inserting Map Data into Decomp")
         for node in rooms_in_rando.all_nodes():
             if rooms_in_rando.depth(node) % 2 == 1:
                 if node.data.is_warp:

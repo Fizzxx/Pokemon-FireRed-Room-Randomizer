@@ -30,6 +30,13 @@ class MapState:
 
         self.lp_rooms_remaining = 0
 
+        self.item_prereqs = (
+            ("hm01_cut", ("badge2",)), ("hm02_fly", ("badge3",)),
+            ("hm03_surf", ("badge5",)), ("hm04_strength", ("badge4", "gold_teeth")),
+            ("hm05_flash", ("badge1",)), ("hm06_rocksmash", ("badge6",)),
+            ("bike", ("bike_voucher",))
+        )
+
         # self.state_history = []
 
     @property
@@ -273,7 +280,7 @@ class MapState:
                 return False
 
         if 'low_priority' in exit_room:
-            if self.lp_rooms_remaining - 1 < 2*self.connec_subverts:
+            if self.lp_rooms_remaining - 1 < 1*self.connec_subverts:  # This was originally 2*, but i think 1* will work.
                 return False
             elif self.avail_doors > self.lp_rooms_remaining - 1:
                 return False
@@ -292,9 +299,14 @@ class MapState:
         #     print(f"\tToo many new subverts ({new_subverts})\n\t\tRoom: {exit_room['alias']}\n")
         #     return False
 
-        for req_item in exit_room['key_items']:
+        for key_item in exit_room['key_items']:
+            for item in self.item_prereqs:
+                if key_item == item[0]:
+                    for prereq in item[1]:
+                        if prereq not in self.acc_key_items:
+                            return False
             for door in self.locked_doors:
-                if req_item in door:
+                if key_item in door:
                     room_free_ends += 1
 
         # if number of currently accessible doorways in the map

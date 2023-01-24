@@ -6,8 +6,6 @@ class WarpNode:
             self,
             entry_warp: dict = None,
             entry_room: dict = None,
-            entry_warp_pairs: tuple = (),
-            exit_warp_pairs: tuple = ()
     ):
         self.entry = entry_warp
         self.entry_room = entry_room
@@ -17,11 +15,12 @@ class WarpNode:
         self.exit_room = None
         self.new_exit_dest_id = 0
 
-        self.entry_warp_pairs = entry_warp_pairs
-        self.exit_warp_pairs = exit_warp_pairs
+        self.entry_warp_pairs = []
+        self.exit_warp_pairs = []
         self.is_warp = True
         self.is_connec = False
 
+        self.add_entry_warp_pairs(entry_room)
         self.find_new_exit_warp_id()
 
     @property
@@ -30,6 +29,7 @@ class WarpNode:
             return f'({self.entry["dest_map"][4:]} -> )'
         return f'({self.entry["dest_map"][4:]} -> {self.exit["dest_map"][4:]})'
 
+    # add loop that checks the dummy room
     def find_new_exit_warp_id(self):
         found_id = False
         for room in ROOMS:
@@ -39,7 +39,6 @@ class WarpNode:
                 for warp in room["warps"]:
                     if "pair_id" in warp:
                         if warp["pair_id"] == self.entry["pair_id"]:
-                            print(warp)
                             self.new_exit_dest_id = warp["dest_warp_id"]
                             found_id = True
                             break
@@ -49,6 +48,7 @@ class WarpNode:
         self.exit_room = exit_room
         self.find_new_entry_warp_id()
 
+    # add loop that checks the dummy room !!!!!!!!!
     def find_new_entry_warp_id(self):
         found_id = False
         for room in ROOMS:
@@ -65,9 +65,12 @@ class WarpNode:
     def add_entry_warp_pairs(self, room: dict):
         warp_pairs = []
         for warp in room['warps']:
+            if warp == self.entry:
+                continue
             if 'pair_id' in warp:
                 if warp['pair_id'] == self.entry['pair_id']:
                     warp_pairs.append(warp)
+        self.entry_warp_pairs = warp_pairs
 
     def add_exit_warp_pairs(self, room: dict):
         warp_pairs = []
@@ -77,3 +80,4 @@ class WarpNode:
             if 'pair_id' in warp:
                 if warp['pair_id'] == self.exit['pair_id']:
                     warp_pairs.append(warp)
+        self.exit_warp_pairs = warp_pairs

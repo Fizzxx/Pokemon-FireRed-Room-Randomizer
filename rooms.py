@@ -140,7 +140,7 @@ ROOMS = (
 				"elevation": 3,
 				"dest_map": "MAP_CELADON_CITY",
 				"dest_warp_id": 3,
-				"pair_id": 37
+				"pair_id": 3
 			},
 			{
 				"x": 12,

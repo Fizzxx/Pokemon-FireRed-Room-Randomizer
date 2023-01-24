@@ -34,14 +34,14 @@ def link_doors(
             file_lines=entry_file_lines,
             target_warp=warp_node.entry,
             exit_room=warp_node.exit_room,
-            dest_warp_id=warp_node.new_exit_dest_id
+            dest_warp_id=warp_node.new_entry_dest_id
         )
         for entry_pair in warp_node.entry_warp_pairs:
             inject_warp_info(
                 file_lines=entry_file_lines,
                 target_warp=entry_pair,
                 exit_room=warp_node.exit_room,
-                dest_warp_id=warp_node.new_exit_dest_id
+                dest_warp_id=warp_node.new_entry_dest_id
             )
     else:
         print("FAILED TO FIND ENTRY ROOM FILE!")
@@ -59,14 +59,14 @@ def link_doors(
             file_lines=exit_file_lines,
             target_warp=warp_node.exit,
             exit_room=warp_node.entry_room,
-            dest_warp_id=warp_node.new_entry_dest_id
+            dest_warp_id=warp_node.new_exit_dest_id
         )
         for exit_pair in warp_node.exit_warp_pairs:
             inject_warp_info(
                 file_lines=exit_file_lines,
                 target_warp=exit_pair,
                 exit_room=warp_node.entry_room,
-                dest_warp_id=warp_node.new_entry_dest_id
+                dest_warp_id=warp_node.new_exit_dest_id
             )
     else:
         print("FAILED TO FIND EXIT ROOM FILE!")
@@ -114,8 +114,8 @@ def inject_warp_info(
 ):
     for index, line in enumerate(file_lines):
         if f'\"dest_map\":' in line:
-            if f'"x": {target_warp["x"]}' in file_lines[index - 3]:
-                if f'"y": {target_warp["y"]}' in file_lines[index - 2]:
+            if f'"x": {target_warp["x"]},' in file_lines[index - 3]:
+                if f'"y": {target_warp["y"]},' in file_lines[index - 2]:
                     file_lines[index] = line[:line.find(':') + 1] + ' "' + exit_room["id"] + '",\n'
                     file_lines[index + 1] = \
                         file_lines[index + 1][:file_lines[index + 1].find(":") + 1] + ' ' + str(dest_warp_id) + '\n'
@@ -250,7 +250,7 @@ def create_warp_node(tree: Tree, parent: Node, warp: dict = None):
         tag=f'to {warp["dest_map"]}', identifier=node_id.value,
         data=WarpNode(entry_warp=warp, entry_room=parent.data.room), parent=parent.identifier
     )
-    tree.get_node(node_id.value).data.add_entry_warp_pairs(parent.data.room)
+    # tree.get_node(node_id.value).data.add_entry_warp_pairs(parent.data.room)
     node_id.increment()
 
 
