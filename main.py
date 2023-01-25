@@ -11,7 +11,7 @@ from rando_utils import link_doors, inject_warp_info, \
 
 def main():
     seed = random.randrange(999999999)  # Randomly generates the seed.
-    seed = 833  # Debug use; enter a specified seed.
+    seed = 812  # Debug use; enter a specified seed.
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
     random.seed(a=seed)  # Loads the seed into the module "random".
 

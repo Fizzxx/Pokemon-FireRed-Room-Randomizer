@@ -1,5 +1,5 @@
 from rooms import ROOMS
-
+from backup_rooms import BACKUPS
 
 class WarpNode:
     def __init__(
@@ -42,6 +42,19 @@ class WarpNode:
                             self.new_exit_dest_id = warp["dest_warp_id"]
                             found_id = True
                             break
+        if not found_id:
+            for warp in ROOMS[-1]["warps"]:
+                if "pair_id" in warp:
+                    if warp["pair_id"] == self.entry["pair_id"]:
+                        self.new_exit_dest_id = warp["dest_warp_id"]
+                        found_id = True
+                        break
+        if not found_id:
+            for warp in BACKUPS[-1]["warps"]:
+                if "pair_id" in warp:
+                    if warp["pair_id"] == self.entry["pair_id"]:
+                        self.new_exit_dest_id = warp["dest_warp_id"]
+                        break
 
     def add_exit_warp(self, exit_warp: dict, exit_room: dict):
         self.exit = exit_warp
@@ -61,6 +74,19 @@ class WarpNode:
                             self.new_entry_dest_id = warp["dest_warp_id"]
                             found_id = True
                             break
+        if not found_id:
+            for warp in ROOMS[-1]["warps"]:
+                if "pair_id" in warp:
+                    if warp["pair_id"] == self.exit["pair_id"]:
+                        self.new_entry_dest_id = warp["dest_warp_id"]
+                        found_id = True
+                        break
+        if not found_id:
+            for warp in BACKUPS[-1]["warps"]:
+                if "pair_id" in warp:
+                    if warp["pair_id"] == self.exit["pair_id"]:
+                        self.new_entry_dest_id = warp["dest_warp_id"]
+                        break
 
     def add_entry_warp_pairs(self, room: dict):
         warp_pairs = []

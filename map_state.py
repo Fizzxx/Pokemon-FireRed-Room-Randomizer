@@ -288,16 +288,13 @@ class MapState:
                 print("\tAdding low-priority room")
 
         if exit_room in BACKUPS:
-            if self.avail_doors + room_free_ends > self.lp_rooms_remaining:  # maybe replace "room_free_ends" with "num_doors" ?
+            if self.free_ends + room_free_ends > self.lp_rooms_remaining:  # maybe replace "room_free_ends" with "num_doors" ?
                 return False
 
         if self.avail_doors < 5:  # If the number of available doorways is low, make sure new subverts don't close the map prematurely
             new_subverts = self.new_connec_subverts(room=exit_room, chain=[])
             if self.door_value + 2 - 2*(self.connec_subverts + new_subverts) < 1:
                 return False
-        # if self.lp_rooms_remaining < 2*(self.connec_subverts + new_subverts):
-        #     print(f"\tToo many new subverts ({new_subverts})\n\t\tRoom: {exit_room['alias']}\n")
-        #     return False
 
         for key_item in exit_room['key_items']:
             for item in self.item_prereqs:
