@@ -118,7 +118,7 @@ def inject_warp_info(
                 if f'"y": {target_warp["y"]},' in file_lines[index - 2]:
                     file_lines[index] = line[:line.find(':') + 1] + ' "' + exit_room["id"] + '",\n'
                     file_lines[index + 1] = \
-                        file_lines[index + 1][:file_lines[index + 1].find(":") + 1] + ' ' + str(dest_warp_id) + '\n'
+                        file_lines[index + 1][:file_lines[index + 1].find(":") + 1] + ' "' + str(dest_warp_id) + '"\n'
 
 
 def inject_warp_info_old(

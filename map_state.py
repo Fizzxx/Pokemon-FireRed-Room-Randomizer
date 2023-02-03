@@ -217,6 +217,17 @@ class MapState:
         for key_item in room['key_items']:
             # make it known that the item is accessible
             self.acc_key_items.append(key_item)
+
+            if "badge" in key_item:
+                badges = []
+                for item in self.acc_key_items:
+                    if "badge" in item:
+                        badges.append(item)
+                if "badge1" in badges:
+                    badges.remove("badge1")
+                if set(badges) == {"badge2", "badge3", "badge4", "badge5", "badge6", "badge7"}:
+                    self.acc_key_items.append("all_badges")
+
             # if the key item was inaccessible,
             #   remove the key item from the inaccessibles list
             if key_item in self.unacc_key_items:

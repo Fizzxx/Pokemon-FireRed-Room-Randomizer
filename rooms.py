@@ -7697,7 +7697,7 @@ ROOMS = (
 		"connections": (
 			("Route2_SW", None),
 			("ViridianCity", ("oaks_parcel", "hm01_cut",)),
-			("ViridianCity_Evil", ("badge7",))
+			("ViridianCity_Evil", ("all_badges",))
 		)
 	},
 	{
@@ -7718,7 +7718,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("ViridianCity_N", ("badge7",)),
+			("ViridianCity_N", ("all_badges",)),
 		)
 	},
 	{
