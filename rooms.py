@@ -140,7 +140,7 @@ ROOMS = (
 				"elevation": 3,
 				"dest_map": "MAP_CELADON_CITY",
 				"dest_warp_id": 3,
-				"pair_id": 37
+				"pair_id": 3
 			},
 			{
 				"x": 12,
@@ -332,7 +332,7 @@ ROOMS = (
 		"id": "MAP_CELADON_CITY_CONDOMINIUMS_ROOF_ROOM",
 		"alias": "CeladonCity_Condominiums_RoofRoom",
 		"key_items": (),
-		"file_name": "CeladonCity_Condomminiums_RoofRoom",
+		"file_name": "CeladonCity_Condominiums_RoofRoom",
 		"warps": (
 			{
 				"x": 4,
@@ -806,7 +806,7 @@ ROOMS = (
 		),
 		"connections": (
 			("Route24", ("hm03_surf",)),
-			("Route4_E", ("hm03_surf",)),
+			# ("Route4_E", ("hm03_surf",)),
 		),
 	},
 	{
@@ -2867,8 +2867,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route12_Center", ("poke_flute",)),
-			("Route12_S", ("poke_flute",)),
+			("Fucking_Fat_Man", ("poke_flute",)),
 		),
 	},
 	{
@@ -2925,6 +2924,20 @@ ROOMS = (
 	},
 	{
 		"id": "MAP_ROUTE12",
+		"alias": "Fucking_Fat_Man",
+		"key_items": (),
+		"file_name": "Route12",
+		"warps": (
+
+		),
+		"connections": (
+			("Route12_Center", ("poke_flute",)),
+			("Route12_S", ("poke_flute",)),
+			("Route11_E", ("poke_flute",)),
+		),
+	},
+	{
+		"id": "MAP_ROUTE12",
 		"alias": "Route12_S",
 		"key_items": (),
 		"file_name": "Route12",
@@ -2939,9 +2952,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route12_Center", ("poke_flute", "hm03_surf",),),
+			("Fucking_Fat_Man", ("poke_flute",)),
 			("Route13", None),
-			("Route11_E", ("poke_flute",)),
 		),
 	},
 	{
@@ -2960,8 +2972,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route12_S", ("poke_flute", "hm03_surf",)),
-			("Route11_E", ("poke_flute",)),
+			("Fucking_Fat_Man", ("poke_flute",)),
 		),
 	},
 	{
@@ -3992,7 +4003,7 @@ ROOMS = (
 		),
 		"connections": (
 			("CeruleanCity", None),
-			("CeruleanCity_Cave", ("hm03_surf",)),
+			# ("CeruleanCity_Cave", ("hm03_surf",)),
 		),
 	},
 	{
@@ -4321,7 +4332,7 @@ ROOMS = (
 				"y": 5,
 				"elevation": 3,
 				"dest_map": "MAP_ROUTE8",
-				# "dest_warp_id": 1,
+				"dest_warp_id": 1,
 				# "req_items": ("tea",),
 				# "requires_all": True,
 				"pair_id": 131  # --------------------------------------------------------------
@@ -7686,7 +7697,7 @@ ROOMS = (
 		"connections": (
 			("Route2_SW", None),
 			("ViridianCity", ("oaks_parcel", "hm01_cut",)),
-			("ViridianCity_Evil", ("badge7",))
+			("ViridianCity_Evil", ("all_badges",))
 		)
 	},
 	{
@@ -7707,7 +7718,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("ViridianCity_N", ("badge7",)),
+			("ViridianCity_N", ("all_badges",)),
 		)
 	},
 	{
@@ -8406,6 +8417,44 @@ ROOMS = (
 		"connections": (
 		)
 	},
+	# {
+	# 	"id": "MAP_SIX_ISLAND_WATER_PATH_HOUSE1",
+	# 	"alias": "SixIsland_WaterPath_House1",
+	# 	"key_items": (),
+	# 	"file_name": "SixIsland_WaterPath_House1",
+	# 	"low_priority": True,
+	# 	"warps": (
+	# 		{
+	# 			"x": 3,
+	# 			"y": 7,
+	# 			"elevation": 3,
+	# 			"dest_map": "MAP_SIX_ISLAND_WATER_PATH",
+	# 			"dest_warp_id": 1,
+	# 			"pair_id": 274
+	# 		},
+	# 	),
+	# 	"connections": (
+	# 	)
+	# },
+	# {
+	# 	"id": "MAP_SIX_ISLAND_WATER_PATH_HOUSE2",
+	# 	"alias": "SixIsland_WaterPath_House2",
+	# 	"key_items": (),
+	# 	"file_name": "SixIsland_WaterPath_House2",
+	# 	"low_priority": True,
+	# 	"warps": (
+	# 		{
+	# 			"x": 4,
+	# 			"y": 7,
+	# 			"elevation": 3,
+	# 			"dest_map": "MAP_SIX_ISLAND_WATER_PATH",
+	# 			"dest_warp_id": 1,
+	# 			"pair_id": 275
+	# 		},
+	# 	),
+	# 	"connections": (
+	# 	)
+	# },
 	{
 		"id": "DUMMY_ROOM",
 		"alias": "Dummy Room",
@@ -8413,6 +8462,22 @@ ROOMS = (
 		"file_name": None,
 		"skip": True,
 		"warps": (
+			# {
+			# 	"x": 5,
+			# 	"y": 13,
+			# 	"elevation": 0,
+			# 	"dest_map": "MAP_SIX_ISLAND_WATER_PATH_HOUSE1",
+			# 	"dest_warp_id": 0,
+			# 	"pair_id": 274
+			# },
+			# {
+			# 	"x": 11,
+			# 	"y": 19,
+			# 	"elevation": 0,
+			# 	"dest_map": "MAP_SIX_ISLAND_WATER_PATH_HOUSE2",
+			# 	"dest_warp_id": 0,
+			# 	"pair_id": 275
+			# },
 			{
 				"x": 2,
 				"y": 37,

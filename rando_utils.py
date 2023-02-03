@@ -22,21 +22,65 @@ node_id = NodeID()
 
 
 def link_doors(
-        parent_node: RoomNode,
-        child_node: RoomNode
+        warp_node: WarpNode
 ):
-    map_file_path = DIRECTORY + '\\' + parent_node.room_filename + '\\map.json'
-    map_file = open(map_file_path, mode='r')
-    map_file_contents = map_file.readlines()
-    map_file.close()
+    entry_file_path = DIRECTORY + '\\' + warp_node.entry_room["file_name"] + '\\map.json'
+    entry_file = open(entry_file_path, mode='r')
+    entry_file_lines = entry_file.readlines()
+    entry_file.close()
 
-    if (': "' + parent_node.room_id + '",') in map_file_contents[1]:
-        inject_warp_info(map_file_contents, entry_warp, destination_map, destination_warp_id)
+    if f"{warp_node.entry_room['file_name']}" in entry_file_lines[2]:
+        inject_warp_info(
+            file_lines=entry_file_lines,
+            target_warp=warp_node.entry,
+            exit_room=warp_node.exit_room,
+            dest_warp_id=warp_node.new_entry_dest_id
+        )
+        for entry_pair in warp_node.entry_warp_pairs:
+            inject_warp_info(
+                file_lines=entry_file_lines,
+                target_warp=entry_pair,
+                exit_room=warp_node.exit_room,
+                dest_warp_id=warp_node.new_entry_dest_id
+            )
+    else:
+        print("FAILED TO FIND ENTRY ROOM FILE!")
+    entry_file = open(entry_file_path, mode='w')
+    entry_file.writelines(entry_file_lines)
+    entry_file.close()
 
-        for poss_duplicate in parent_node.warps:
-            if 'pair_id' in poss_duplicate and poss_duplicate is not entry_warp:
-                if poss_duplicate['pair_id'] == entry_warp['pair_id']:
-                    inject_warp_info(map_file_contents, poss_duplicate, destination_map, destination_warp_id)
+    exit_file_path = DIRECTORY + '\\' + warp_node.exit_room["file_name"] + '\\map.json'
+    exit_file = open(exit_file_path, mode='r')
+    exit_file_lines = exit_file.readlines()
+    exit_file.close()
+
+    if f"{warp_node.exit_room['file_name']}" in exit_file_lines[2]:
+        inject_warp_info(
+            file_lines=exit_file_lines,
+            target_warp=warp_node.exit,
+            exit_room=warp_node.entry_room,
+            dest_warp_id=warp_node.new_exit_dest_id
+        )
+        for exit_pair in warp_node.exit_warp_pairs:
+            inject_warp_info(
+                file_lines=exit_file_lines,
+                target_warp=exit_pair,
+                exit_room=warp_node.entry_room,
+                dest_warp_id=warp_node.new_exit_dest_id
+            )
+    else:
+        print("FAILED TO FIND EXIT ROOM FILE!")
+    exit_file = open(exit_file_path, mode='w')
+    exit_file.writelines(exit_file_lines)
+    exit_file.close()
+
+    # if (': "' + parent_node.room_id + '",') in entry_file_lines[1]:
+    #     inject_warp_info(entry_file_lines, entry_warp, destination_map, destination_warp_id)
+    #
+    #     for poss_duplicate in parent_node.warps:
+    #         if 'pair_id' in poss_duplicate and poss_duplicate is not entry_warp:
+    #             if poss_duplicate['pair_id'] == entry_warp['pair_id']:
+    #                 inject_warp_info(entry_file_lines, poss_duplicate, destination_map, destination_warp_id)
 #                         # randod_warps.append(poss_duplicate)
     # with os.scandir(DIRECTORY) as entries:
     #     for entry in entries:
@@ -63,6 +107,21 @@ def link_doors(
 
 
 def inject_warp_info(
+        file_lines: list[str],
+        target_warp: dict,
+        exit_room: dict,
+        dest_warp_id: int
+):
+    for index, line in enumerate(file_lines):
+        if f'\"dest_map\":' in line:
+            if f'"x": {target_warp["x"]},' in file_lines[index - 3]:
+                if f'"y": {target_warp["y"]},' in file_lines[index - 2]:
+                    file_lines[index] = line[:line.find(':') + 1] + ' "' + exit_room["id"] + '",\n'
+                    file_lines[index + 1] = \
+                        file_lines[index + 1][:file_lines[index + 1].find(":") + 1] + ' "' + str(dest_warp_id) + '"\n'
+
+
+def inject_warp_info_old(
         file_lines: list[str],
         target_warp: dict,
         dest_map: str,
@@ -181,7 +240,7 @@ def trim_room_tree(room_tree: Tree, room_parent: Node, avail_room_indecies: list
                     not in avail_room_indecies:
                 leaf.data.is_terminus = True
 
-    for leaf in room_tree.leaves():
+    for leaf in room_tree.leaves():  # Can this function silently add connection subverts?
         if leaf.is_root():
             leaf.data.is_terminus = True
 
@@ -189,9 +248,9 @@ def trim_room_tree(room_tree: Tree, room_parent: Node, avail_room_indecies: list
 def create_warp_node(tree: Tree, parent: Node, warp: dict = None):
     tree.create_node(
         tag=f'to {warp["dest_map"]}', identifier=node_id.value,
-        data=WarpNode(warp), parent=parent.identifier
+        data=WarpNode(entry_warp=warp, entry_room=parent.data.room), parent=parent.identifier
     )
-    tree.get_node(node_id.value).data.add_entry_warp_pairs(parent.data.room)
+    # tree.get_node(node_id.value).data.add_entry_warp_pairs(parent.data.room)
     node_id.increment()
 
 
