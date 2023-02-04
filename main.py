@@ -3,10 +3,9 @@ from map_state import MapState
 from rooms import ROOMS as ROOMS
 from backup_rooms import BACKUPS
 from treelib import Tree
-from rando_utils import link_doors, inject_warp_info, \
-    room_quality, is_good_entry, create_room_node, create_warp_node, \
-    is_done, room_of_id, create_connec_node, \
-    index_of_room, rooms_data_from_alias, build_room, trim_room_tree
+from rando_utils import link_doors, \
+    is_good_entry, is_done, rooms_data_from_alias, \
+    build_room, trim_room_tree
 
 
 def main():

@@ -7739,7 +7739,7 @@ ROOMS = (
 				"x": 25,
 				"y": 11,
 				"elevation": 3,
-				"dest_map": "MAP_VIRIDIAN_CITY_HOUSE1",
+				"dest_map": "MAP_VIRIDIAN_CITY_HOUSE",
 				"dest_warp_id": 1,
 				"pair_id": 183  # --------------------------------------------------------------
 			},
@@ -7747,7 +7747,7 @@ ROOMS = (
 				"x": 25,
 				"y": 18,
 				"elevation": 0,
-				"dest_map": "MAP_VIRIDIAN_CITY_HOUSE2",
+				"dest_map": "MAP_VIRIDIAN_CITY_SCHOOL",
 				"dest_warp_id": 1,
 				"pair_id": 185  # --------------------------------------------------------------
 			},
@@ -7784,10 +7784,10 @@ ROOMS = (
 		),
 	},
 	{
-		"id": "MAP_VIRIDIAN_CITY_HOUSE1",
-		"alias": "ViridianCity_House1",
+		"id": "MAP_VIRIDIAN_CITY_HOUSE",
+		"alias": "ViridianCity_House",
 		"key_items": (),
-		"file_name": "ViridianCity_House1",
+		"file_name": "ViridianCity_House",
 		"warps": (
 			{
 				"x": 4,
@@ -7802,10 +7802,10 @@ ROOMS = (
 		),
 	},
 	{
-		"id": "MAP_VIRIDIAN_CITY_HOUSE2",
-		"alias": "ViridianCity_House2",
+		"id": "MAP_VIRIDIAN_CITY_SCHOOL",
+		"alias": "ViridianCity_School",
 		"key_items": (),
-		"file_name": "ViridianCity_House2",
+		"file_name": "ViridianCity_School",
 		"warps": (
 			{
 				"x": 4,

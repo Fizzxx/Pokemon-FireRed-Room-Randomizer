@@ -1,4 +1,4 @@
-from map_omits import map_omits
+# from map_omits import map_omits
 from map_state import MapState
 from room_node import RoomNode
 from warp_node import WarpNode
