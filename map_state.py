@@ -225,8 +225,12 @@ class MapState:
                         badges.append(item)
                 if "badge1" in badges:
                     badges.remove("badge1")
+                if "badge8" in badges:
+                    badges.remove("badge8")
                 if set(badges) == {"badge2", "badge3", "badge4", "badge5", "badge6", "badge7"}:
                     self.acc_key_items.append("all_badges")
+                    if "all_badges" in self.unacc_key_items:
+                        self.unacc_key_items.remove("all_badges")
 
             # if the key item was inaccessible,
             #   remove the key item from the inaccessibles list
@@ -291,7 +295,7 @@ class MapState:
                 return False
 
         if 'low_priority' in exit_room:
-            if self.lp_rooms_remaining - 1 < 1*self.connec_subverts:  # This was originally 2*, but i think 1* will work.
+            if self.lp_rooms_remaining - 1 < 2*self.connec_subverts:  # This was originally 2*, but i think 1* will work.
                 return False
             elif self.avail_doors > self.lp_rooms_remaining - 1:
                 return False
@@ -302,9 +306,10 @@ class MapState:
             if self.free_ends + room_free_ends > self.lp_rooms_remaining:  # maybe replace "room_free_ends" with "num_doors" ?
                 return False
 
-        if self.avail_doors < 5:  # If the number of available doorways is low, make sure new subverts don't close the map prematurely
+        if self.free_ends < 5:  # If the number of available doorways is low, make sure new subverts don't close the map prematurely
             new_subverts = self.new_connec_subverts(room=exit_room, chain=[])
-            if self.door_value + 2 - 2*(self.connec_subverts + new_subverts) < 1:
+            if self.free_ends - 2*new_subverts < 1:
+                print("\n\ntoo many connec subverts found\n\n", new_subverts)
                 return False
 
         for key_item in exit_room['key_items']:
@@ -322,15 +327,15 @@ class MapState:
         #   minus the 2 doorways used to make the connection
         #   is more than zero, then the map will not close prematurely
         #   and the exit is good
-        if self.free_ends + room_free_ends - 2 > 0:
+        if self.free_ends + room_free_ends - 2 > 1:
             return True
 
         # if the number of currently accessible doorways in the map
         #   is equal to the number of available doorways NOT in the map
         #   and the number of rooms NOT in the map is 1
         #   then the room is okay to add, and the map will be closed
-        elif self.avail_doors == self.avail_doors_not and self.rooms_not == 1:
-            return True
+        # elif self.avail_doors == self.avail_doors_not and self.rooms_not == 1:
+        #     return True
 
         # none of the above are true, so the room in question is no good,
         #   as it will close the map prematurely
