@@ -225,8 +225,12 @@ class MapState:
                         badges.append(item)
                 if "badge1" in badges:
                     badges.remove("badge1")
+                if "badge8" in badges:
+                    badges.remove("badge8")
                 if set(badges) == {"badge2", "badge3", "badge4", "badge5", "badge6", "badge7"}:
                     self.acc_key_items.append("all_badges")
+                    if "all_badges" in self.unacc_key_items:
+                        self.unacc_key_items.remove("all_badges")
 
             # if the key item was inaccessible,
             #   remove the key item from the inaccessibles list

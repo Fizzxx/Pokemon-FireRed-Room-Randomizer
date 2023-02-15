@@ -7552,7 +7552,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VictoryRoad_2F", ("hm04_strength",)),
+			("VictoryRoad_2F", None),
 		),
 	},
 	{
@@ -7629,7 +7629,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VictoryRoad_1F", ("hm04_strength",)),
+			("VictoryRoad_1F", None),
 		),
 	},
 	{
