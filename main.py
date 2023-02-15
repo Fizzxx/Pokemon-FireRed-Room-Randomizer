@@ -10,7 +10,7 @@ from rando_utils import link_doors, \
 
 def main():
     seed = random.randrange(999999999)  # Randomly generates the seed.
-    seed = 14  # Debug use; enter a specified seed.
+    #seed = 9578  # Debug use; enter a specified seed.
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
     random.seed(a=seed)  # Loads the seed into the module "random".
 

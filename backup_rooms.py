@@ -21,14 +21,14 @@ BACKUPS = (
                 "dest_warp_id": 0,
                 "pair_id": 301,
             },
-            {
-                "x": 38,
-                "y": 12,
-                "elevation": 0,
-                "dest_map": "MAP_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
-                "dest_warp_id": 0,
-                "pair_id": 302,
-            },
+            # {
+            #     "x": 38,
+            #     "y": 12,
+            #     "elevation": 0,
+            #     "dest_map": "MAP_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+            #     "dest_warp_id": 0,
+            #     "pair_id": 302,
+            # },
             {
                 "x": 18,
                 "y": 20,

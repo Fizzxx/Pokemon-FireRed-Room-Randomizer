@@ -4064,7 +4064,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CeruleanCity_Exterior", ("hm01_cut",),),
+			("CeruleanCity_Exterior", None),
 		),
 	},
 	{
