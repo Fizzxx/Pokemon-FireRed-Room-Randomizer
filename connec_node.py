@@ -6,7 +6,7 @@ class ConnecNode:
         self.is_warp = False
         self.is_connec = True
         self.req_items = connection[1]
-        self.requires_all = False
+        self.requires_all = connection[2]
         self.reqs_met = True
         self.is_terminus = terminus
 

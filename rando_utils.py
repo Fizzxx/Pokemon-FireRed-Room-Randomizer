@@ -74,37 +74,6 @@ def link_doors(
     exit_file.writelines(exit_file_lines)
     exit_file.close()
 
-    # if (': "' + parent_node.room_id + '",') in entry_file_lines[1]:
-    #     inject_warp_info(entry_file_lines, entry_warp, destination_map, destination_warp_id)
-    #
-    #     for poss_duplicate in parent_node.warps:
-    #         if 'pair_id' in poss_duplicate and poss_duplicate is not entry_warp:
-    #             if poss_duplicate['pair_id'] == entry_warp['pair_id']:
-    #                 inject_warp_info(entry_file_lines, poss_duplicate, destination_map, destination_warp_id)
-#                         # randod_warps.append(poss_duplicate)
-    # with os.scandir(DIRECTORY) as entries:
-    #     for entry in entries:
-    #         omit_map_flag = False
-    #         for omit in map_omits:
-    #             if entry.name.find(omit) > -1:
-    #                 omit_map_flag = True
-    #         if omit_map_flag:
-    #             continue
-    #
-    #         current_map = DIRECTORY + '\\' + entry.name + '\\map.json'
-    #         map_file = open(current_map, mode='r')
-    #         map_file_contents = map_file.readlines()
-    #         map_file.close()
-    #
-    #         if (': "' + parent_node.room_id + '",') in map_file_contents[1]:
-    #             inject_warp_info(map_file_contents, entry_warp, destination_map, destination_warp_id)
-    #
-    #             for poss_duplicate in parent_node.warps:
-    #                 if 'pair_id' in poss_duplicate and poss_duplicate is not entry_warp:
-    #                     if poss_duplicate['pair_id'] == entry_warp['pair_id']:
-    #                         inject_warp_info(map_file_contents, poss_duplicate, destination_map, destination_warp_id)
-    #                         # randod_warps.append(poss_duplicate)
-
 
 def inject_warp_info(
         file_lines: list[str],
