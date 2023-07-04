@@ -30,6 +30,9 @@ class MapState:
 
         self.lp_rooms_remaining = 0
 
+        self.avail_room_indecies = []
+        self.avail_backups_indecies = []
+
         self.item_prereqs = (
             ("hm01_cut", ("badge2",)), ("hm02_fly", ("badge3",)),
             ("hm03_surf", ("badge5",)), ("hm04_strength", ("badge4", "gold_teeth")),
@@ -79,13 +82,6 @@ class MapState:
 
         self.rooms_not += total_rooms_not
         self.doors_not += total_doors_not
-
-        # self.state_history.append(
-        #     MapState(
-        #         rooms_not=total_rooms_not,
-        #         doors_not=total_doors_not
-        #     )
-        # )
 
     @staticmethod
     def doors_in_room(room: dict):
@@ -151,19 +147,6 @@ class MapState:
                 unique_warps.append(warp['pair_id'])
         return len(set(unique_warps))
 
-    # def locked_doors_in_room(self, room: dict):
-    #     num_locked_doors = 0
-    #     for connec in room['connections']:
-    #         if connec[1] is not None:
-    #             missing_item = True
-    #             for item in connec[1]:
-    #                 if item in self.acc_key_items:
-    #                     missing_item = False
-    #                     break
-    #             if missing_item:
-    #                 num_locked_doors += 1
-    #     return num_locked_doors
-
     def is_connec_locked(self, connec: tuple) -> bool:
         if connec[1] is None:
             return False
@@ -217,21 +200,6 @@ class MapState:
         for key_item in room['key_items']:
             # make it known that the item is accessible
             self.acc_key_items.append(key_item)
-
-            # if "badge" in key_item:
-            #     badges = []
-            #     for item in self.acc_key_items:
-            #         if "badge" in item:
-            #             badges.append(item)
-            #     if "badge1" in badges:
-            #         badges.remove("badge1")
-            #     if "badge8" in badges:
-            #         badges.remove("badge8")
-            #     if set(badges) == {"badge2", "badge3", "badge4", "badge5", "badge6", "badge7"}:
-            #         self.acc_key_items.append("all_badges")
-            #         if "all_badges" in self.unacc_key_items:
-            #             self.unacc_key_items.remove("all_badges")
-
 
             # if the key item was inaccessible,
             #   remove the key item from the inaccessibles list
@@ -307,11 +275,11 @@ class MapState:
             if self.free_ends + room_free_ends > self.lp_rooms_remaining:  # maybe replace "room_free_ends" with "num_doors" ?
                 return False
 
-        if self.free_ends < 5:  # If the number of available doorways is low, make sure new subverts don't close the map prematurely
-            new_subverts = self.new_connec_subverts(room=exit_room, chain=[])
-            if self.free_ends - 2*new_subverts < 1:
-                print("\n\ntoo many connec subverts found\n\n", new_subverts)
-                return False
+        # if self.free_ends < 5:  # If the number of available doorways is low, make sure new subverts don't close the map prematurely
+        new_subverts = self.new_connec_subverts(room=exit_room, chain=[])
+        if self.connec_subverts + new_subverts > 18:  # self.free_ends - 2*new_subverts < 1:
+            print("\n\ntoo many connec subverts found\n\n", new_subverts)
+            return False
 
         for key_item in exit_room['key_items']:
             for item in self.item_prereqs:
@@ -329,6 +297,9 @@ class MapState:
         #   is more than zero, then the map will not close prematurely
         #   and the exit is good
         if self.free_ends + room_free_ends - 2 > 1:
+            return True
+
+        elif len(self.avail_room_indecies) - self.lp_rooms_remaining == self.avail_doors:
             return True
 
         # if the number of currently accessible doorways in the map

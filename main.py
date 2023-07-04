@@ -10,7 +10,7 @@ from rando_utils import link_doors, \
 
 def main():
     seed = random.randrange(999999999)  # Randomly generates the seed.
-    # seed = 31574833 # 346360342 # 190649677  # Debug use; enter a specified seed.
+    seed = 2  # 22 # 31574833 # 346360342 # 190649677  # Debug use; enter a specified seed.
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
     random.seed(a=seed)  # Loads the seed into the module "random".
 
@@ -25,14 +25,14 @@ def main():
         if 'skip' in room:
             continue
         elif MapState.doors_in_room(room) > 0:
-            avail_room_indecies.append(index)
+            rando_state.avail_room_indecies.append(index)
 
     avail_backups_indecies = []  # Declares the list of backup rooms available for insertion on an as-needed basis.
     for index, room in enumerate(BACKUPS):  # Adds rooms to the list "avail_backup_indecies.
         if 'skip' in room:
             continue
         elif MapState.doors_in_room(room) > 0:
-            avail_backups_indecies.append(index)
+            rando_state.avail_backups_indecies.append(index)
 
     for index, room in enumerate(ROOMS):  # Creates initial room for the map "rooms_in_rando".
         if room['alias'] == 'ViridianCity':
@@ -40,7 +40,7 @@ def main():
             print('Creating initial ROOM:')
             rooms_in_rando = build_room(room)
             rando_state.update_state(room_tree=rooms_in_rando, room=room)
-            avail_room_indecies.remove(index)
+            rando_state.avail_room_indecies.remove(index)
             break
 
     creating_tree = True  # Initializes the flag for the main loop.
@@ -56,8 +56,8 @@ def main():
         print('SEED = ', orig_seed)
         print('Current Map State:')
         rando_state.display_state()
-        print(f'\n{len(avail_room_indecies)} {avail_room_indecies = }')
-        print(f'{len(avail_backups_indecies)} {avail_backups_indecies = }')
+        print(f'\n{len(rando_state.avail_room_indecies)} {rando_state.avail_room_indecies = }')
+        print(f'{len(rando_state.avail_backups_indecies)} {rando_state.avail_backups_indecies = }')
         print('----------------------')
         print('Start of Tree:\n')
         rooms_in_rando.show(data_property="node_alias")  # Displays the map tree to console using the "node_alias" as a node label.
@@ -80,10 +80,10 @@ def main():
                     print('----------------------')
                     print('Processing WARP:', leaf.data.node_alias)
 
-                    poss_room_choices = list(avail_room_indecies)  # Creates a list copy to avoid editing the original list.
-                    poss_backup_choices = list(avail_backups_indecies)
+                    poss_room_choices = list(rando_state.avail_room_indecies)  # Creates a list copy to avoid editing the original list.
+                    poss_backup_choices = list(rando_state.avail_backups_indecies)
                     room_choices = (poss_room_choices, poss_backup_choices)
-                    available_indecies = (avail_room_indecies, avail_backups_indecies)
+                    available_indecies = (rando_state.avail_room_indecies, rando_state.avail_backups_indecies)
                     using_backups = 0
                     room_chosen = False
                     # Iterates through the available rooms, and determines a viable exit room for the warp.
@@ -123,7 +123,7 @@ def main():
                             rooms_in_rando.paste(nid=leaf.identifier, new_tree=room_tree)
                             available_indecies[using_backups].remove(exit_candidate)
                             room_chosen = True
-                        elif "low_priority" in exit_room and len(avail_room_indecies) == rando_state.lp_rooms_remaining:
+                        elif "low_priority" in exit_room and len(rando_state.avail_room_indecies) == rando_state.lp_rooms_remaining:
                             print("\nBYPASSING TO CLOSE\n")
                             exit_warp = random.choice(viable_warps)  # The exit warp is selected from the list of viable warps.
                             print('\tSuccessfully fetched (room, warp):\n\t\t',
@@ -159,11 +159,11 @@ def main():
                             continue
 
                         index, exit_room = rooms_data_from_alias(leaf.data.exit, give_index=True, give_room=True)
-                        if index in avail_room_indecies:
+                        if index in rando_state.avail_room_indecies:
                             room_tree = build_room(room=exit_room)
                             trim_room_tree(
                                 room_tree=room_tree, room_parent=leaf,
-                                avail_room_indecies=avail_room_indecies,
+                                avail_room_indecies=rando_state.avail_room_indecies,
                             )
 
                             rando_state.update_state(room_tree=room_tree, room=exit_room)
@@ -171,7 +171,7 @@ def main():
 
                             rando_state.open_connections -= 1  # add this into MapState.update_state()
 
-                            avail_room_indecies.remove(index)
+                            rando_state.avail_room_indecies.remove(index)
                         else:
                             leaf.data.is_terminus = True
                             print(f'\tConnection destination, {exit_room["alias"]}, not found in available rooms. Creating terminus.')
@@ -196,8 +196,8 @@ def main():
     print('SEED = ', orig_seed)
     print('Current Map State:')
     rando_state.display_state()
-    print(f'\n{len(avail_room_indecies)} {avail_room_indecies = }')
-    print(f'{len(avail_backups_indecies)} {avail_backups_indecies = }')
+    print(f'\n{len(rando_state.avail_room_indecies)} {rando_state.avail_room_indecies = }')
+    print(f'{len(rando_state.avail_backups_indecies)} {rando_state.avail_backups_indecies = }')
 
     if insert_map_data:
         print('----------------------\n')
