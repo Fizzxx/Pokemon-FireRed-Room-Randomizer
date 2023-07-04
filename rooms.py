@@ -102,9 +102,9 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route16_SE", None),
-			("Route7", None),
-			("CeladonCity_Gym_with_girls", ("hm01_cut",)),
+			("Route16_SE", None, False),
+			("Route7", None, False),
+			("CeladonCity_Gym_with_girls", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -125,7 +125,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CeladonCity", ("hm01_cut",)),
+			("CeladonCity", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -760,10 +760,10 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route24", None),
-			("Route4_E", None),
-			("CeruleanCity_Exterior", ("hm01_cut",)),
-			("CeruleanCity_cop_block", ("ssanne_ticket",)),
+			("Route24", None, False),
+			("Route4_E", None, False),
+			("CeruleanCity_Exterior", ("hm01_cut",), False),
+			("CeruleanCity_cop_block", ("ssanne_ticket",), False),
 		),
 	},
 	{
@@ -784,7 +784,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CeruleanCity", ("ssanne_ticket",)),
+			("CeruleanCity", ("ssanne_ticket",), False),
 		),
 	},
 	{
@@ -805,8 +805,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route24", ("hm03_surf",)),
-			# ("Route4_E", ("hm03_surf",)),
+			("Route24", ("hm03_surf",), False),
+			# ("Route4_E", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -843,9 +843,9 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route9", ("hm01_cut",)),
-			("Route5", None),
-			("CeruleanCity", ("hm01_cut",)),
+			("Route9", ("hm01_cut",), False),
+			("Route5", None, False),
+			("CeruleanCity", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -1080,9 +1080,9 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route21_South", ("hm03_surf",)),
-			("Route20_W", ("hm03_surf",)),
-			("CinnabarIsland_Old_Fire_Guy", ("secret_key",)),
+			("Route21_South", ("hm03_surf",), False),
+			("Route20_W", ("hm03_surf",), False),
+			("CinnabarIsland_Old_Fire_Guy", ("secret_key",), False),
 		),
 	},
 	{
@@ -1103,7 +1103,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CinnabarIsland", ("secret_key",)),
+			("CinnabarIsland", ("secret_key",), False),
 		),
 	},
 	{
@@ -1414,9 +1414,9 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route19", ("hm03_surf",)),
-			("Route18_E", None),
-			("Route15_W", None),
+			("Route19", ("hm03_surf",), False),
+			("Route18_E", None, False),
+			("Route15_W", None, False),
 		),
 	},
 	{
@@ -1612,8 +1612,6 @@ ROOMS = (
 				"elevation": 3,
 				"dest_map": "MAP_FUCHSIA_CITY",
 				"dest_warp_id": 1,
-				# "req_items": ("gold_teeth", "badge4",),
-				# "requires_all": True,
 				"pair_id": 48
 			},
 		),
@@ -1676,9 +1674,9 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route10_S", None),
-			("Route12_N", None),
-			("Route8", None),
+			("Route10_S", None, False),
+			("Route12_N", None, False),
+			("Route8", None, False),
 		),
 	},
 	{
@@ -2045,9 +2043,9 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route2_NW", None),
-			("Route3", None),
-			("PewterCity_Fake_Fence", ("hm01_cut",)),
+			("Route2_NW", None, False),
+			("Route3", None, False),
+			("PewterCity_Fake_Fence", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -2068,7 +2066,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("PewterCity", ("hm01_cut",)),
+			("PewterCity", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -2403,7 +2401,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("PokemonTower_6F_Stairway_To_Heaven", ("silph_scope",)),
+			("PokemonTower_6F_Stairway_To_Heaven", ("silph_scope",), False),
 		),
 	},
 	{
@@ -2431,7 +2429,7 @@ ROOMS = (
 			# },
 		),
 		"connections": (
-			("PokemonTower_6F", ("silph_scope",)),
+			("PokemonTower_6F", ("silph_scope",), False),
 		),
 	},
 	{
@@ -2752,7 +2750,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("LavenderTown", None),
+			("LavenderTown", None, False),
 		),
 	},
 	{
@@ -2773,7 +2771,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route10_N", ("hm03_surf",)),
+			("Route10_N", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -2800,8 +2798,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route9", None),
-			("Route10_Center", ("hm03_surf",)),
+			("Route9", None, False),
+			("Route10_Center", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -2846,7 +2844,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VermilionCity", None),
+			("VermilionCity", None, False),
 		),
 	},
 	{
@@ -2867,7 +2865,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Fucking_Fat_Man", ("poke_flute",)),
+			("Fucking_Fat_Man", ("poke_flute",), False),
 		),
 	},
 	{
@@ -2931,9 +2929,9 @@ ROOMS = (
 
 		),
 		"connections": (
-			("Route12_Center", ("poke_flute",)),
-			("Route12_S", ("poke_flute",)),
-			("Route11_E", ("poke_flute",)),
+			("Route12_Center", ("poke_flute",), False),
+			("Route12_S", ("poke_flute",), False),
+			("Route11_E", ("poke_flute",), False),
 		),
 	},
 	{
@@ -2952,8 +2950,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Fucking_Fat_Man", ("poke_flute",)),
-			("Route13", None),
+			("Fucking_Fat_Man", ("poke_flute",), False),
+			("Route13", None, False),
 		),
 	},
 	{
@@ -2972,7 +2970,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Fucking_Fat_Man", ("poke_flute",)),
+			("Fucking_Fat_Man", ("poke_flute",), False),
 		),
 	},
 	{
@@ -2991,7 +2989,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("LavenderTown", None),
+			("LavenderTown", None, False),
 		),
 	},
 	{
@@ -3072,8 +3070,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("Route12_S", None),
-			("Route14", None),
+			("Route12_S", None, False),
+			("Route14", None, False),
 		),
 	},
 	{
@@ -3084,8 +3082,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("Route15_E", None),
-			("Route13", None),
+			("Route15_E", None, False),
+			("Route13", None, False),
 		),
 	},
 	{
@@ -3104,7 +3102,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route14", None),
+			("Route14", None, False),
 		),
 	},
 	{
@@ -3123,7 +3121,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("FuchsiaCity", None),
+			("FuchsiaCity", None, False),
 		),
 	},
 	{
@@ -3194,7 +3192,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route17", None),
+			("Route17", None, False),
 		),
 	},
 	{
@@ -3239,7 +3237,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route16_SE", ("poke_flute",)),
+			("Route16_SE", ("poke_flute",), False),
 		)
 	},
 	{
@@ -3260,9 +3258,9 @@ ROOMS = (
 			# },
 		),
 		"connections": (
-			("CeladonCity", None),
-			("Route16_NE", ("hm01_cut",)),
-			("Behind_Fat_Bastard", ("poke_flute",))
+			("CeladonCity", None, False),
+			("Route16_NE", ("hm01_cut",), False),
+			("Behind_Fat_Bastard", ("poke_flute",), False),
 		),
 	},
 	{
@@ -3281,7 +3279,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route16_SE", ("hm01_cut",)),
+			("Route16_SE", ("hm01_cut",), False),
 		)
 	},
 	{
@@ -3348,7 +3346,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route16_NorthEntrance_1F_Bot_Right", ("bike",)),
+			("Route16_NorthEntrance_1F_Bot_Right", ("bike",), False),
 		),
 	},
 	{
@@ -3377,7 +3375,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route16_NorthEntrance_1F_Bot_Left", ("bike",)),
+			("Route16_NorthEntrance_1F_Bot_Left", ("bike",), False),
 		),
 	},
 	{
@@ -3406,8 +3404,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("Route16_SW", None),
-			("Route18_W", None),
+			("Route16_SW", None, False),
+			("Route18_W", None, False),
 		),
 	},
 	{
@@ -3426,7 +3424,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route17", None),
+			("Route17", None, False),
 		),
 	},
 	{
@@ -3445,7 +3443,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("FuchsiaCity", None),
+			("FuchsiaCity", None, False),
 		),
 	},
 	{
@@ -3466,7 +3464,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route18_EastEntrance_1F_Right", ("bike",)),
+			("Route18_EastEntrance_1F_Right", ("bike",), False),
 		),
 	},
 	{
@@ -3495,7 +3493,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route18_EastEntrance_1F_Left", ("bike",)),
+			("Route18_EastEntrance_1F_Left", ("bike",), False),
 		),
 	},
 	{
@@ -3524,8 +3522,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("FuchsiaCity", ("hm03_surf",)),
-			("Route20_E", ("hm03_surf",),),
+			("FuchsiaCity", ("hm03_surf",), False),
+			("Route20_E", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -3552,8 +3550,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("PewterCity", None),
-			("Route2_NE", ("hm01_cut",)),
+			("PewterCity", None, False),
+			("Route2_NE", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -3580,8 +3578,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route2_NW", ("hm01_cut",)),
-			("Route2_Center", ("hm01_cut",)),
+			("Route2_NW", ("hm01_cut",), False),
+			("Route2_Center", ("hm01_cut",), False),
 		)
 	},
 	{
@@ -3608,7 +3606,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route2_NE", ("hm01_cut",)),
+			("Route2_NE", ("hm01_cut",), False),
 		)
 	},
 	{
@@ -3635,8 +3633,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("ViridianCity_N", None),
-			("Route2_SE", ("hm01_cut",)),
+			("ViridianCity_N", None, False),
+			("Route2_SE", ("hm01_cut",), False),
 		),
 	},
 	{
@@ -3663,7 +3661,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route2_SW", ("hm01_cut",)),
+			("Route2_SW", ("hm01_cut",), False),
 		)
 	},
 	{
@@ -3682,7 +3680,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route19", ("hm03_surf",)),
+			("Route19", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -3703,7 +3701,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CinnabarIsland", ("hm03_surf",)),
+			("CinnabarIsland", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -3714,7 +3712,7 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("Route21_South", ("hm03_surf",)),
+			("Route21_South", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -3725,8 +3723,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("Route21_North", ("hm03_surf",)),
-			("CinnabarIsland", ("hm03_surf",)),
+			("Route21_North", ("hm03_surf",), False),
+			("CinnabarIsland", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -3745,7 +3743,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("ViridianCity", None),
+			("ViridianCity", None, False),
 		),
 	},
 	{
@@ -3805,9 +3803,9 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("CeruleanCity", None),
-			("Route25", None),
-			("CeruleanCity_Cave", ("hm03_surf",)),
+			("CeruleanCity", None, False),
+			("Route25", None, False),
+			("CeruleanCity_Cave", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -3826,7 +3824,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route24", None),
+			("Route24", None, False),
 		),
 	},
 	{
@@ -3953,8 +3951,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("Route4_W", None),
-			("PewterCity", None),
+			("Route4_W", None, False),
+			("PewterCity", None, False),
 		),
 	},
 	{
@@ -3981,7 +3979,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route3", None),
+			("Route3", None, False),
 		),
 	},
 	{
@@ -4002,8 +4000,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CeruleanCity", None),
-			# ("CeruleanCity_Cave", ("hm03_surf",)),
+			("CeruleanCity", None, False),
+			# ("CeruleanCity_Cave", ("hm03_surf",), False),
 		),
 	},
 	{
@@ -4064,7 +4062,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CeruleanCity_Exterior", None),
+			("CeruleanCity_Exterior", None, False),
 		),
 	},
 	{
@@ -4103,7 +4101,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route5_SouthEntrance_Bot", ("tea",)),
+			("Route5_SouthEntrance_Bot", ("tea",), False),
 		),
 	},
 	{
@@ -4124,7 +4122,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route5_SouthEntrance_Top", ("tea",)),
+			("Route5_SouthEntrance_Top", ("tea",), False),
 		),
 	},
 	{
@@ -4159,7 +4157,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VermilionCity", None),
+			("VermilionCity", None, False),
 		),
 	},
 	{
@@ -4180,7 +4178,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route6_NorthEntrance_Bot", ("tea",)),
+			("Route6_NorthEntrance_Bot", ("tea",), False),
 		),
 	},
 	{
@@ -4201,7 +4199,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route6_NorthEntrance_Top", ("tea",)),
+			("Route6_NorthEntrance_Top", ("tea",), False),
 		),
 	},
 	{
@@ -4228,7 +4226,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("CeladonCity", None),
+			("CeladonCity", None, False),
 		),
 	},
 	{
@@ -4249,7 +4247,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route7_EastEntrance_Right", ("tea",)),
+			("Route7_EastEntrance_Right", ("tea",), False),
 		),
 	},
 	{
@@ -4270,7 +4268,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route7_EastEntrance_Left", ("tea",)),
+			("Route7_EastEntrance_Left", ("tea",), False),
 		),
 	},
 	{
@@ -4297,7 +4295,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("LavenderTown", None),
+			("LavenderTown", None, False),
 		),
 	},
 	{
@@ -4318,7 +4316,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route8_WestEntrance_Right", ("tea",)),
+			("Route8_WestEntrance_Right", ("tea",), False),
 		),
 	},
 	{
@@ -4339,7 +4337,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("Route8_WestEntrance_Left", ("tea",)),
+			("Route8_WestEntrance_Left", ("tea",), False),
 		),
 	},
 	{
@@ -4350,8 +4348,8 @@ ROOMS = (
 		"warps": (
 		),
 		"connections": (
-			("CeruleanCity_Exterior", ("hm01_cut",)),
-			("Route10_N", None),
+			("CeruleanCity_Exterior", ("hm01_cut",), False),
+			("Route10_N", None, False),
 		),
 	},
 	{
@@ -5017,8 +5015,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("SaffronCity_Tower", ("poke_flute",)),
-			("SaffronCity_Crime", ("master_ball",)),
+			("SaffronCity_Tower", ("poke_flute",), False),
+			("SaffronCity_Crime", ("master_ball",), False),
 		),
 	},
 	{
@@ -5039,7 +5037,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("SaffronCity", ("poke_flute",)),
+			("SaffronCity", ("poke_flute",), False),
 		),
 	},
 	{
@@ -5080,7 +5078,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("SaffronCity", ("master_ball",)),
+			("SaffronCity", ("master_ball",), False),
 		),
 	},
 	{
@@ -7340,10 +7338,10 @@ ROOMS = (
 			# },
 		),
 		"connections": (
-			("Route6", None),
-			("Route11_W", None),
-			("VermilionCity_GateKeep", ("ssanne_ticket",)),
-			("VermilionCity_War_Hero", ("hm01_cut", "hm03_surf",)),
+			("Route6", None, False),
+			("Route11_W", None, False),
+			("VermilionCity_GateKeep", ("ssanne_ticket",), False),
+			("VermilionCity_War_Hero", ("hm01_cut", "hm03_surf",), False),
 		),
 	},
 	{
@@ -7384,7 +7382,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VermilionCity", ("ssanne_ticket",)),
+			("VermilionCity", ("ssanne_ticket",), False),
 		),
 	},
 	{
@@ -7405,7 +7403,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VermilionCity", ("hm01_cut", "hm03_surf",)),
+			("VermilionCity", ("hm01_cut", "hm03_surf",), False),
 		),
 	},
 	{
@@ -7552,7 +7550,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VictoryRoad_2F", None),
+			("VictoryRoad_2F", None, False),
 		),
 	},
 	{
@@ -7629,7 +7627,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("VictoryRoad_1F", None),
+			("VictoryRoad_1F", None, False),
 		),
 	},
 	{
@@ -7695,9 +7693,9 @@ ROOMS = (
 			# },
 		),
 		"connections": (
-			("Route2_SW", None),
-			("ViridianCity", ("oaks_parcel", "hm01_cut",)),
-			("ViridianCity_Evil", ("all_badges",))
+			("Route2_SW", None, False),
+			("ViridianCity", ("oaks_parcel", "hm01_cut",), False),
+			("ViridianCity_Evil", ("badge2", "badge3", "badge4", "badge5", "badge6", "badge7",), True),
 		)
 	},
 	{
@@ -7718,7 +7716,7 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("ViridianCity_N", ("all_badges",)),
+			("ViridianCity_N", ("badge2", "badge3", "badge4", "badge5", "badge6", "badge7",), True),
 		)
 	},
 	{
@@ -7761,8 +7759,8 @@ ROOMS = (
 			},
 		),
 		"connections": (
-			("ViridianCity_N", ("oaks_parcel", "hm01_cut",)),
-			("Route22", None),
+			("ViridianCity_N", ("oaks_parcel", "hm01_cut",), False),
+			("Route22", None, False),
 		),
 	},
 	{

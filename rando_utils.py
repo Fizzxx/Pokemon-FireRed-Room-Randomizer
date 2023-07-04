@@ -74,37 +74,6 @@ def link_doors(
     exit_file.writelines(exit_file_lines)
     exit_file.close()
 
-    # if (': "' + parent_node.room_id + '",') in entry_file_lines[1]:
-    #     inject_warp_info(entry_file_lines, entry_warp, destination_map, destination_warp_id)
-    #
-    #     for poss_duplicate in parent_node.warps:
-    #         if 'pair_id' in poss_duplicate and poss_duplicate is not entry_warp:
-    #             if poss_duplicate['pair_id'] == entry_warp['pair_id']:
-    #                 inject_warp_info(entry_file_lines, poss_duplicate, destination_map, destination_warp_id)
-#                         # randod_warps.append(poss_duplicate)
-    # with os.scandir(DIRECTORY) as entries:
-    #     for entry in entries:
-    #         omit_map_flag = False
-    #         for omit in map_omits:
-    #             if entry.name.find(omit) > -1:
-    #                 omit_map_flag = True
-    #         if omit_map_flag:
-    #             continue
-    #
-    #         current_map = DIRECTORY + '\\' + entry.name + '\\map.json'
-    #         map_file = open(current_map, mode='r')
-    #         map_file_contents = map_file.readlines()
-    #         map_file.close()
-    #
-    #         if (': "' + parent_node.room_id + '",') in map_file_contents[1]:
-    #             inject_warp_info(map_file_contents, entry_warp, destination_map, destination_warp_id)
-    #
-    #             for poss_duplicate in parent_node.warps:
-    #                 if 'pair_id' in poss_duplicate and poss_duplicate is not entry_warp:
-    #                     if poss_duplicate['pair_id'] == entry_warp['pair_id']:
-    #                         inject_warp_info(map_file_contents, poss_duplicate, destination_map, destination_warp_id)
-    #                         # randod_warps.append(poss_duplicate)
-
 
 def inject_warp_info(
         file_lines: list[str],
@@ -119,49 +88,6 @@ def inject_warp_info(
                     file_lines[index] = line[:line.find(':') + 1] + ' "' + exit_room["id"] + '",\n'
                     file_lines[index + 1] = \
                         file_lines[index + 1][:file_lines[index + 1].find(":") + 1] + ' "' + str(dest_warp_id) + '"\n'
-
-
-def inject_warp_info_old(
-        file_lines: list[str],
-        target_warp: dict,
-        dest_map: str,
-        dest_warp_id: int
-):
-    for line in range(len(file_lines)):
-        if file_lines[line].find('\"dest_map\":') > -1:
-            if (': ' + str(target_warp['x']) + ',') in file_lines[line - 3]:
-                if (': ' + str(target_warp['y']) + ',') in file_lines[line - 2]:
-                    file_lines[line] = (
-                            file_lines[line][:file_lines[line].find(':') + 1] + ' "' + str(dest_map) + '",\n')
-                    file_lines[line + 1] = (
-                            file_lines[line + 1][:file_lines[line + 1].find(':') + 1] + ' ' + str(dest_warp_id) + '\n')
-
-
-def room_quality(exit_room, acc_key_items):
-    bad_room = True
-    bad_warp = False
-    exit_warp = None
-    for poss_exit_warp in exit_room['warps']:
-        if 'pair_id' in poss_exit_warp:
-            if 'req_items' in poss_exit_warp:
-                if poss_exit_warp['requires_all']:
-                    for req in poss_exit_warp['req_items']:
-                        if req not in acc_key_items:
-                            bad_warp = True
-                else:
-                    for req in poss_exit_warp['req_items']:
-                        if req in acc_key_items:
-                            bad_warp = False
-                            break
-                        else:
-                            bad_warp = True
-            elif not bad_warp:
-                exit_warp = poss_exit_warp
-                bad_room = False
-    if bad_room:
-        return None
-    else:
-        return exit_room, exit_warp
 
 
 def is_good_entry(entry: Node, acc_key_items):
