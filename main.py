@@ -7,13 +7,10 @@ from rando_utils import link_doors, \
     is_good_entry, is_done, rooms_data_from_alias, \
     build_room, trim_room_tree
 
+import time
+
 
 def main():
-    seed = random.randrange(999999999)  # Randomly generates the seed.
-    seed = 2  # 22 # 31574833 # 346360342 # 190649677  # Debug use; enter a specified seed.
-    orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
-    random.seed(a=seed)  # Loads the seed into the module "random".
-
     rooms_in_rando = Tree()  # Initializes the randomizer's map object.
     rando_state = MapState()  # Initializes the map state.
     rando_state.build_initial_state(ROOMS)  # Creates the initial mathematical state of the map.
@@ -45,7 +42,18 @@ def main():
 
     creating_tree = True  # Initializes the flag for the main loop.
     insert_map_data = False
+
+    rando_updated = True
+    failed_attempts = 0
     while creating_tree:
+
+        if not rando_updated:
+            failed_attempts += 1
+        rando_updated = False
+
+        if failed_attempts > 1:
+            return True
+
         if rando_state.halt_process():  # Determines if the process needs to halt prematurely.
             print('\nFINAL STATE AND MAP')
             insert_map_data = True
@@ -150,6 +158,9 @@ def main():
                                 using_backups = 1
                             continue
 
+                    if room_chosen:
+                        rando_updated = True
+
                 elif leaf.data.is_connec:  # leaf is a ConnecNode
                     print('----------------------')
                     print('Processing CONNEC:', leaf.data.entry, '->', leaf.data.exit)
@@ -157,6 +168,8 @@ def main():
                         if leaf.data.is_terminus:
                             print('\tConnection was terminus.')
                             continue
+
+                        rando_updated = True
 
                         index, exit_room = rooms_data_from_alias(leaf.data.exit, give_index=True, give_room=True)
                         if index in rando_state.avail_room_indecies:
@@ -206,7 +219,21 @@ def main():
             if rooms_in_rando.depth(node) % 2 == 1:
                 if node.data.is_warp:
                     link_doors(node.data)
+        # write final map tree to file named "spoiler.txt"
+        return False
 
 
 if __name__ == "__main__":
-    main()
+    seed = random.randrange(999999999)  # Randomly generates the seed.
+    seed = 2  # 22 # 31574833 # 346360342 # 190649677  # Debug use; enter a specified seed.
+    orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
+    random.seed(a=seed)  # Loads the seed into the module "random".
+
+    attempt = 1
+    print(attempt)
+    while main():
+        attempt += 1
+        print(attempt)
+        seed = random.randrange(999999999)
+        random.seed(a=seed)
+        print(f"new seed: {seed}")

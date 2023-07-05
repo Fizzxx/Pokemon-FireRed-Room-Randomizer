@@ -401,9 +401,3 @@ class MapState:
         print('\nLocked doors:', len(self.locked_doors), self.locked_doors)
         print('\nConnection Subverts:', self.connec_subverts)
         print(f'{self.lp_rooms_remaining = }')
-        #print('\nExisting connections:', len(self.curr_connecs), self.curr_connecs)
-
-    # def display_state_history(self):
-    #     for state in self.state_history:
-    #         state.display_state()
-    #         print('\n')
