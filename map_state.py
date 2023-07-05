@@ -6,6 +6,7 @@ from backup_rooms import BACKUPS
 class MapState:
     def __init__(
             self,
+            debug: bool = False,
             rooms: int = 0,
             rooms_not: int = 0,
             doors: int = 0,
@@ -13,6 +14,8 @@ class MapState:
             key_item_locks: int = 0,
             open_connections: int = 0
     ):
+        self.debug = debug
+
         self.rooms = rooms
         self.rooms_not = rooms_not
 
@@ -214,7 +217,8 @@ class MapState:
                     self.locked_doors.remove(lock)
                     self.key_item_locks -= 1
                     self.open_connections += 1
-            print('\t\tAdding new key item:', key_item)
+            if self.debug:
+                print('\t\tAdding new key item:', key_item)
 
         for leaf in room_tree.leaves():
             # if leaf is root, it's the only piece of the tree, so it's a dead end
@@ -225,7 +229,8 @@ class MapState:
                 if {leaf.data.entry, leaf.data.exit} in self.curr_connecs:
                     leaf.data.is_terminus = True
                     self.connec_subverts += 1
-                    print(f"Incrementing subverts; {(leaf.data.entry, leaf.data.exit)}")
+                    if self.debug:
+                        print(f"Incrementing subverts; {(leaf.data.entry, leaf.data.exit)}")
                     # self.doors -= 2
                     if leaf.data.req_items is not None:
                         if self.is_connec_locked((leaf.data.exit, leaf.data.req_items)):
@@ -260,7 +265,8 @@ class MapState:
 
         if MapState.num_warps(exit_room) == 1 and len(new_connecs) > 0:  # add condition to verify the other end of the connection doesn't already exist (?)
             if not self.good_connec_chain(room=exit_room, chain=[]):
-                print('\tBAD CONNEC CHAIN:', exit_room['alias'])
+                if self.debug:
+                    print('\tBAD CONNEC CHAIN:', exit_room['alias'])
                 return False
 
         if 'low_priority' in exit_room:
@@ -269,7 +275,8 @@ class MapState:
             elif self.avail_doors > self.lp_rooms_remaining - 1:
                 return False
             else:
-                print("\tAdding low-priority room")
+                if self.debug:
+                    print("\tAdding low-priority room")
 
         if exit_room in BACKUPS:
             if self.free_ends + room_free_ends > self.lp_rooms_remaining:  # maybe replace "room_free_ends" with "num_doors" ?
@@ -278,7 +285,8 @@ class MapState:
         # if self.free_ends < 5:  # If the number of available doorways is low, make sure new subverts don't close the map prematurely
         new_subverts = self.new_connec_subverts(room=exit_room, chain=[])
         if self.connec_subverts + new_subverts > 18:  # self.free_ends - 2*new_subverts < 1:
-            print("\n\ntoo many connec subverts found\n\n", new_subverts)
+            if self.debug:
+                print("\n\ntoo many connec subverts found\n\n", new_subverts)
             return False
 
         for key_item in exit_room['key_items']:
@@ -312,7 +320,8 @@ class MapState:
         # none of the above are true, so the room in question is no good,
         #   as it will close the map prematurely
         else:
-            print('\tBAD ROOM CHOICE:', exit_room['alias'])
+            if self.debug:
+                print('\tBAD ROOM CHOICE:', exit_room['alias'])
             return False
 
     # have this method run in "is_good_exit" if the number of warps in the exit room is 1, and the
@@ -323,7 +332,8 @@ class MapState:
         connecs_in_chain = chain
 
         if MapState.num_warps(room) > 1 - secondary_room:
-            print('\t\troom had sufficient warps')
+            if self.debug:
+                print('\t\troom had sufficient warps')
             return True
         else:
             connecs = []
@@ -345,8 +355,9 @@ class MapState:
                         if r['alias'] == connec[1]:
                             next_room = r
                             break
-                print(next_room, connec)
-                print('\t\tMoving to next room in chain:', next_room['alias'])
+                if self.debug:
+                    print(next_room, connec)
+                    print('\t\tMoving to next room in chain:', next_room['alias'])
                 if self.good_connec_chain(
                         room=next_room, chain=connecs_in_chain, secondary_room=True
                 ):
@@ -362,7 +373,8 @@ class MapState:
                 connec_chain.append({room["alias"], connec[0]})
                 if {room["alias"], connec[0]} in self.curr_connecs:
                     new_subverts += 1
-                    print(f"\tNew Subvert: {(room['alias'], connec[0])}")
+                    if self.debug:
+                        print(f"\tNew Subvert: {(room['alias'], connec[0])}")
                 else:
                     next_room = None
                     for r in ROOMS:
@@ -381,7 +393,8 @@ class MapState:
 
     def halt_process(self):
         if self.avail_doors < 1:
-            print(f"{self.avail_doors = }")
+            if self.debug:
+                print(f"{self.avail_doors = }")
             return True
         return False
 
