@@ -117,7 +117,7 @@ def create_room_node(tree: Tree, room: dict, parent: Node = None):
     node_id.increment()
 
 
-def build_room(room: dict):
+def build_room(room: dict, debug: bool = False):
     room_tree = Tree()
     root_node_id = node_id.value
     room_tree.create_node(
@@ -135,33 +135,39 @@ def build_room(room: dict):
         if warp['pair_id'] not in used_pair_ids:
             create_warp_node(tree=room_tree, parent=room_root, warp=warp)
             used_pair_ids.append(warp['pair_id'])
-            print(f'\tAdding warp from: {room["alias"]} -> {warp["dest_map"]}')
+            if debug:
+                print(f'\tAdding warp from: {room["alias"]} -> {warp["dest_map"]}')
 
     for connection in room['connections']:
         create_connec_node(
             tree=room_tree, parent=room_root,
             connec=connection, terminus=False
         )
-        print(f'\tAdding connec from: {room["alias"]} -> (Direct to {connection[0]})')
+        if debug:
+            print(f'\tAdding connec from: {room["alias"]} -> (Direct to {connection[0]})')
 
     return room_tree
 
 
-def trim_room_tree(room_tree: Tree, room_parent: Node, avail_room_indecies: list):
+def trim_room_tree(room_tree: Tree, room_parent: Node, avail_room_indecies: list, debug: bool = False):
     for leaf in room_tree.leaves():
         if leaf.data.is_warp and room_parent.data.is_warp:
             if leaf.data.entry['pair_id'] == room_parent.data.exit['pair_id']:
                 if room_tree.remove_node(leaf.identifier) > 1:
-                    print('*** removed too many nodes!')
+                    if debug:
+                        print('*** removed too many nodes!')
                 else:
-                    print('\tRemoving existing warp:', leaf.data.node_alias)
+                    if debug:
+                        print('\tRemoving existing warp:', leaf.data.node_alias)
 
         elif leaf.data.is_connec and room_parent.data.is_connec:
             if leaf.data.exit == room_parent.data.entry:
                 if room_tree.remove_node(leaf.identifier) > 1:
-                    print('*** removed too many nodes!')
+                    if debug:
+                        print('*** removed too many nodes!')
                 else:
-                    print('\tRemoving existing connection:', leaf.data.node_alias)
+                    if debug:
+                        print('\tRemoving existing connection:', leaf.data.node_alias)
             elif rooms_data_from_alias(leaf.data.exit, give_index=True) \
                     not in avail_room_indecies:
                 leaf.data.is_terminus = True
