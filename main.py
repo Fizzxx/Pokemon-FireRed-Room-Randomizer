@@ -9,7 +9,9 @@ from rando_utils import link_doors, \
     build_room, trim_room_tree
 
 
-def main(debug: bool = False):
+def randomize_game(debug: bool = False):
+    rando_start = time.perf_counter()
+
     rooms_in_rando = Tree()  # Initializes the randomizer's map object.
     rando_state = MapState(debug=False)  # Initializes the map state.
     rando_state.build_initial_state(ROOMS)  # Creates the initial mathematical state of the map.
@@ -231,18 +233,22 @@ def main(debug: bool = False):
         print(f'{len(rando_state.avail_backups_indecies)} {rando_state.avail_backups_indecies = }')
 
     if insert_map_data:
+        rando_stop = time.perf_counter()
+        print(f"Time to complete rando calculations: {rando_stop - rando_start}")
         print("Inserting Map Data into Decomp")
         for node in rooms_in_rando.all_nodes():
             if rooms_in_rando.depth(node) % 2 == 1:
                 if node.data.is_warp:
                     link_doors(node.data)
         # write final map tree to file named "spoiler.txt"
+    injection_stop = time.perf_counter()
+    print(f"Time to complete file injection: {injection_stop - rando_stop}")
     return False
 
 
 if __name__ == "__main__":
     seed = random.randrange(999999999)  # Randomly generates the seed.
-    # seed = 2  # 22 # 31574833 # 346360342 # 190649677  # Debug use; enter a specified seed.
+    # seed = 31574833  # 22 # 31574833 # 346360342 # 190649677  # Debug use; enter a specified seed.
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
     random.seed(a=seed)  # Loads the seed into the module "random".
 
@@ -252,8 +258,10 @@ if __name__ == "__main__":
     print("---------------------")
     print(f"Seed: {orig_seed}")
     print(f"{attempt = }")
-    while main(debug=False):
+    while randomize_game(debug=False):
         attempt += 1
+        attempt_time = time.perf_counter()
+        print(f"Time taken during attempt: {attempt_time - tick}")
         print(f"{attempt = }")
         seed = random.randrange(999999999)
         random.seed(a=seed)
