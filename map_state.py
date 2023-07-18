@@ -1,4 +1,4 @@
-from treelib import Tree, Node
+from treelib import Tree
 from rooms import ROOMS
 from backup_rooms import BACKUPS
 
@@ -189,7 +189,7 @@ class MapState:
         return len(doors), num_warps, new_connecs, locked_connecs
 
     def update_state(self, room_tree: Tree, room: dict):
-        doors_in_room = MapState.doors_in_room(room)
+        # doors_in_room = MapState.doors_in_room(room)
         doors_in_room, _1, _2, _3 = self.room_data(room)
         self.rooms += 1
         self.rooms_not -= 1

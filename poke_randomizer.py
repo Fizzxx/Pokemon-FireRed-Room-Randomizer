@@ -1,5 +1,4 @@
 import random
-import time
 from map_state import MapState
 from rooms import ROOMS as ROOMS
 from backup_rooms import BACKUPS
@@ -9,8 +8,8 @@ from rando_utils import link_doors, \
     build_room, trim_room_tree
 
 
-def randomize_game(debug: bool = False):
-    rando_start = time.perf_counter()
+def randomize_game(debug: bool = False, rando_seed: int = random.randrange(999999999)):
+    random.seed(a=rando_seed)
 
     rooms_in_rando = Tree()  # Initializes the randomizer's map object.
     rando_state = MapState(debug=False)  # Initializes the map state.
@@ -19,14 +18,12 @@ def randomize_game(debug: bool = False):
         print('Initial Map state:')
         rando_state.display_state()  # Displays the initial map state to the console.
 
-    avail_room_indecies = []  # Declares the list of rooms available to select for insertion into the map; indecies represent rooms in the "rooms.py" file.
     for index, room in enumerate(ROOMS):  # Adds randomizable rooms to the list "avail_room_indecies"
         if 'skip' in room:
             continue
         elif MapState.doors_in_room(room) > 0:
             rando_state.avail_room_indecies.append(index)
 
-    avail_backups_indecies = []  # Declares the list of backup rooms available for insertion on an as-needed basis.
     for index, room in enumerate(BACKUPS):  # Adds rooms to the list "avail_backup_indecies.
         if 'skip' in room:
             continue
@@ -111,8 +108,8 @@ def randomize_game(debug: bool = False):
                             exit_room = ROOMS[exit_candidate]
 
                         # update the seed after making a choice
-                        seed = random.randrange(9999999)
-                        random.seed(a=seed)
+                        rando_seed = random.randrange(9999999)
+                        random.seed(a=rando_seed)
 
                         viable_warps = []  # Creates a list to track viable exit warps in the candidate room.
                         for warp in exit_room['warps']:
@@ -233,16 +230,16 @@ def randomize_game(debug: bool = False):
         print(f'{len(rando_state.avail_backups_indecies)} {rando_state.avail_backups_indecies = }')
 
     if insert_map_data:
-        rando_stop = time.perf_counter()
-        print(f"Time to complete rando calculations: {rando_stop - rando_start}")
         print("Inserting Map Data into Decomp")
         for node in rooms_in_rando.all_nodes():
             if rooms_in_rando.depth(node) % 2 == 1:
                 if node.data.is_warp:
                     link_doors(node.data)
-        # write final map tree to file named "spoiler.txt"
-    injection_stop = time.perf_counter()
-    print(f"Time to complete file injection: {injection_stop - rando_stop}")
+        # write final map tree to file named "spoiler_log.txt"
+        spoiler_log = open("spoiler_log.txt", "w")
+        spoiler_log.close()
+        rooms_in_rando.save2file(filename="spoiler_log.txt",
+                                 data_property="node_alias")
     return False
 
 
@@ -252,20 +249,14 @@ if __name__ == "__main__":
     orig_seed = seed  # Saves the original seed value; seed value is rerolled per iteration of room selection.
     random.seed(a=seed)  # Loads the seed into the module "random".
 
-    tick = time.perf_counter()
-
     attempt = 1
     print("---------------------")
     print(f"Seed: {orig_seed}")
     print(f"{attempt = }")
     while randomize_game(debug=False):
         attempt += 1
-        attempt_time = time.perf_counter()
-        print(f"Time taken during attempt: {attempt_time - tick}")
         print(f"{attempt = }")
         seed = random.randrange(999999999)
         random.seed(a=seed)
 
-    tock = time.perf_counter()
-    print(f"Time to complete: {tock - tick}")
     print("---------------------")

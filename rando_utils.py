@@ -1,13 +1,14 @@
-# from map_omits import map_omits
-from map_state import MapState
+import os
+from dotenv import load_dotenv
+
 from room_node import RoomNode
 from warp_node import WarpNode
 from connec_node import ConnecNode
 from treelib import Node, Tree
 from rooms import ROOMS
 
-
-DIRECTORY = "M:\Kameron_Scott\Desktop\Modding\pokefirered\data\maps"
+load_dotenv()
+DIRECTORY = os.getenv("MAPS_DIRECTORY")
 
 
 class NodeID:

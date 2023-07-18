@@ -1,2 +1,4 @@
 .idea
 __pycache__/
+spoiler_log.txt
+.env
