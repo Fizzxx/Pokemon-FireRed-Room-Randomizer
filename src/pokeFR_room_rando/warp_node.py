@@ -1,5 +1,6 @@
-from rooms import ROOMS
-from backup_rooms import BACKUPS
+from .rooms import ROOMS
+from .backup_rooms import BACKUPS
+
 
 class WarpNode:
     def __init__(

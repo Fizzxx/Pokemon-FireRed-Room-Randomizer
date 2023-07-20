@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
 
-from room_node import RoomNode
-from warp_node import WarpNode
-from connec_node import ConnecNode
+from .room_node import RoomNode
+from .warp_node import WarpNode
+from .connec_node import ConnecNode
 from treelib import Node, Tree
-from rooms import ROOMS
+from .rooms import ROOMS
+
 
 load_dotenv()
 DIRECTORY = os.getenv("MAPS_DIRECTORY")

@@ -1,6 +1,6 @@
 from treelib import Tree
-from rooms import ROOMS
-from backup_rooms import BACKUPS
+from .rooms import ROOMS
+from .backup_rooms import BACKUPS
 
 
 class MapState:

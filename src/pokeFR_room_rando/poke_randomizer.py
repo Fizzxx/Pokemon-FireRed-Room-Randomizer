@@ -1,9 +1,9 @@
 import random
-from map_state import MapState
-from rooms import ROOMS as ROOMS
-from backup_rooms import BACKUPS
+from .map_state import MapState
+from .rooms import ROOMS as ROOMS
+from .backup_rooms import BACKUPS
 from treelib import Tree
-from rando_utils import link_doors, \
+from .rando_utils import link_doors, \
     is_good_entry, is_done, rooms_data_from_alias, \
     build_room, trim_room_tree
 
@@ -71,7 +71,7 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
             print('Start of Tree:\n')
             rooms_in_rando.show(data_property="node_alias")  # Displays the map tree to console using the "node_alias" as a node label.
 
-        current_leaves = rooms_in_rando.leaves()  # Creates a list of leaves in the rando tree to loop over.
+        current_leaves = rooms_in_rando.leaves()  # Creates a list of leaves in the pokeFR_room_rando tree to loop over.
 
         for leaf in current_leaves:  # This loop iterates over all current leaves in the tree, identifies which type of node it is, and processes accordingly.
             if debug:
@@ -236,9 +236,9 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
                 if node.data.is_warp:
                     link_doors(node.data)
         # write final map tree to file named "spoiler_log.txt"
-        spoiler_log = open("spoiler_log.txt", "w")
+        spoiler_log = open("../../spoiler_log.txt", "w")
         spoiler_log.close()
-        rooms_in_rando.save2file(filename="spoiler_log.txt",
+        rooms_in_rando.save2file(filename="../../spoiler_log.txt",
                                  data_property="node_alias")
     return False
 
