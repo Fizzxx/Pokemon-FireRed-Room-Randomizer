@@ -3,4 +3,3 @@ __pycache__/
 spoiler_log.txt
 .env
 build
-src/pokeFR_room_randomizer.egg-info
