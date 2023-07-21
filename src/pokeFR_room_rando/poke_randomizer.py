@@ -9,6 +9,8 @@ from .rando_utils import link_doors, \
 
 
 def randomize_game(debug: bool = False, rando_seed: int = random.randrange(999999999)):
+    if rando_seed < 0:
+        rando_seed = random.randrange(999999999)
     random.seed(a=rando_seed)
 
     rooms_in_rando = Tree()  # Initializes the randomizer's map object.
