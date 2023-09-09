@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "49c00ae8dd9958ccfe9a1e8c159ee681026464fc151c3c21dde654a3de159eef"
+            "sha256": "7b4cdca88420337b39413310d526f7f0902320dca8d2ab39c69070607cccbfea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,10 @@
         ]
     },
     "default": {
+        "pokefr-room-rando": {
+            "editable": true,
+            "path": "."
+        },
         "pokefr-room-randomizer": {
             "editable": true,
             "path": "."
@@ -30,10 +34,11 @@
         },
         "treelib": {
             "hashes": [
-                "sha256:1a2e838f6b99e2690bc3d992d5a1f04cdb4af6564bd7688883c23d17257bbb2a",
-                "sha256:4218f7dded2448dfa6a335888bf68a28430660163e7faf18c6128ec4477d34c0"
+                "sha256:9bff1af416b9e642a6cd0e0431d15edf26a24b8d0c8ae68afbd3801b5e30fb61",
+                "sha256:c37795eaba19f73f3e1a905ef3f4f0cab660dc7617126e8ae99391e25c755416"
             ],
-            "version": "==1.6.4"
+            "index": "pypi",
+            "version": "==1.7.0"
         }
     },
     "develop": {}

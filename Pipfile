@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 pokefr-room-randomizer = {editable = true, path = "."}
+treelib = "*"
+pokefr-room-rando = {editable = true, path = "."}
 
 [dev-packages]
 

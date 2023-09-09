@@ -1,6 +1,7 @@
 Metadata-Version: 2.1
-Name: pokeFR-room-randomizer
-Version: 0.0.0
+Name: pokeFR-room-rando
+Version: 0.1.2
 Summary: randomizes the internal connections between doorways to alter map layout, while retaining logic and playability.
-Author: Kameron Scott
+Author: Kameron Scott, Nick Tumminaro
 Requires-Python: >=3.7.0
+Requires-Dist: treelib>=1.6.0

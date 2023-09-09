@@ -23,6 +23,45 @@ class NodeID:
 node_id = NodeID()
 
 
+# ----------------------------------------------------------------------------- 
+def edit_entry_room(
+        warp_node: WarpNode,
+        file_lines: list[str]
+):
+    inject_warp_info(
+            file_lines=file_lines,
+            target_warp=warp_node.entry,
+            exit_room=warp_node.exit_room,
+            dest_warp_id=warp_node.new_entry_dest_id
+    )
+    for entry_pair in warp_node.entry_warp_pairs:
+        inject_warp_info(
+            file_lines=file_lines,
+            target_warp=entry_pair,
+            exit_room=warp_node.exit_room,
+            dest_warp_id=warp_node.new_entry_dest_id
+        )
+
+
+def edit_exit_room(
+        warp_node: WarpNode,
+        file_lines: list[str]
+):
+    inject_warp_info(
+            file_lines=file_lines,
+            target_warp=warp_node.exit,
+            exit_room=warp_node.entry_room,
+            dest_warp_id=warp_node.new_exit_dest_id
+    )
+    for exit_pair in warp_node.exit_warp_pairs:
+        inject_warp_info(
+            file_lines=file_lines,
+            target_warp=exit_pair,
+            exit_room=warp_node.entry_room,
+            dest_warp_id=warp_node.new_exit_dest_id
+        )
+
+
 def link_doors(
         warp_node: WarpNode
 ):
@@ -32,21 +71,10 @@ def link_doors(
     entry_file.close()
 
     if f"{warp_node.entry_room['file_name']}" in entry_file_lines[2]:
-        inject_warp_info(
-            file_lines=entry_file_lines,
-            target_warp=warp_node.entry,
-            exit_room=warp_node.exit_room,
-            dest_warp_id=warp_node.new_entry_dest_id
-        )
-        for entry_pair in warp_node.entry_warp_pairs:
-            inject_warp_info(
-                file_lines=entry_file_lines,
-                target_warp=entry_pair,
-                exit_room=warp_node.exit_room,
-                dest_warp_id=warp_node.new_entry_dest_id
-            )
+        edit_entry_room(warp_node, entry_file_lines)
     else:
-        print("FAILED TO FIND ENTRY ROOM FILE!")
+        print("FAILED TO FIND ENTRY ROOM FILE!")     
+
     entry_file = open(entry_file_path, mode='w')
     entry_file.writelines(entry_file_lines)
     entry_file.close()
@@ -57,24 +85,24 @@ def link_doors(
     exit_file.close()
 
     if f"{warp_node.exit_room['file_name']}" in exit_file_lines[2]:
-        inject_warp_info(
-            file_lines=exit_file_lines,
-            target_warp=warp_node.exit,
-            exit_room=warp_node.entry_room,
-            dest_warp_id=warp_node.new_exit_dest_id
-        )
-        for exit_pair in warp_node.exit_warp_pairs:
-            inject_warp_info(
-                file_lines=exit_file_lines,
-                target_warp=exit_pair,
-                exit_room=warp_node.entry_room,
-                dest_warp_id=warp_node.new_exit_dest_id
-            )
+        edit_exit_room(warp_node, exit_file_lines)
     else:
         print("FAILED TO FIND EXIT ROOM FILE!")
+
     exit_file = open(exit_file_path, mode='w')
     exit_file.writelines(exit_file_lines)
     exit_file.close()
+
+
+def is_target_warp(
+        target_warp: dict,
+        file_lines: list[str],
+        index: int
+) -> bool:
+    return (
+        f'"x": {target_warp["x"]},' in file_lines[index - 3] and
+        f'"y": {target_warp["y"]},' in file_lines[index - 2]
+    )
 
 
 def inject_warp_info(
@@ -84,26 +112,21 @@ def inject_warp_info(
         dest_warp_id: int
 ):
     for index, line in enumerate(file_lines):
-        if f'\"dest_map\":' in line:
-            if f'"x": {target_warp["x"]},' in file_lines[index - 3]:
-                if f'"y": {target_warp["y"]},' in file_lines[index - 2]:
-                    file_lines[index] = line[:line.find(':') + 1] + ' "' + exit_room["id"] + '",\n'
-                    file_lines[index + 1] = \
-                        file_lines[index + 1][:file_lines[index + 1].find(":") + 1] + ' "' + str(dest_warp_id) + '"\n'
+        if f'\"dest_map\":' in line and is_target_warp(target_warp, file_lines, index):
+            exit_room_value_index = line.find(':') + 1
+            file_lines[index] = line[:exit_room_value_index] \
+                + f' "{exit_room["id"]}",\n'
+            
+            dest_warp_id_index = file_lines[index + 1].find(':') + 1
+            file_lines[index + 1] = file_lines[index + 1][:dest_warp_id_index] \
+                + f' "{str(dest_warp_id)}"\n'
+# -----------------------------------------------------------------------------
 
 
 def is_good_entry(entry: Node, acc_key_items):
     if entry.data.req_items is not None:
-        if entry.data.requires_all:
-            for item in entry.data.req_items:
-                if item not in acc_key_items:
-                    return False
-        else:
-            have_item = False
-            for item in entry.data.req_items:
-                if item in acc_key_items:
-                    have_item = True
-            return have_item
+        item_check = all if entry.data.requires_all else any
+        return item_check(item in acc_key_items for item in entry.data.req_items)
     return True
 
 
@@ -151,16 +174,39 @@ def build_room(room: dict, debug: bool = False):
     return room_tree
 
 
-def trim_room_tree(room_tree: Tree, room_parent: Node, avail_room_indecies: list, debug: bool = False):
+def is_trimmable_warp(
+        leaf: Node,
+        room_parent: Node
+):
+    return (
+        leaf.data.is_warp and room_parent.data.is_warp and \
+        leaf.data.entry['pair_id'] == room_parent.data.exit['pair_id']
+    )
+
+
+def is_trimmable_connec(
+        leaf: Node,
+        room_parent: Node
+):
+    return (
+        leaf.data.is_connec and room_parent.data.is_connec and \
+        leaf.data.exit == room_parent.data.entry
+    )
+
+
+def trim_room_tree(
+        room_tree: Tree, 
+        room_parent: Node, 
+        avail_room_indecies: list, 
+        debug: bool = False
+):
     for leaf in room_tree.leaves():
-        if leaf.data.is_warp and room_parent.data.is_warp:
-            if leaf.data.entry['pair_id'] == room_parent.data.exit['pair_id']:
-                if room_tree.remove_node(leaf.identifier) > 1:
-                    if debug:
-                        print('*** removed too many nodes!')
-                else:
-                    if debug:
-                        print('\tRemoving existing warp:', leaf.data.node_alias)
+        if is_trimmable_warp(leaf, room_parent):
+            if room_tree.remove_node(leaf.identifier) > 1:
+                if debug:
+                    print('*** removed too many nodes!')
+            elif debug:
+                print('\tRemoving existing warp:', leaf.data.node_alias)
 
         elif leaf.data.is_connec and room_parent.data.is_connec:
             if leaf.data.exit == room_parent.data.entry:
