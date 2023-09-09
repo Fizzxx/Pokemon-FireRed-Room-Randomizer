@@ -4,12 +4,14 @@ from .node_manager import NodeManager
 from .warp_node import WarpNode
 from .connec_node import ConnecNode
 from .room_node import RoomNode
+from .map_state import MapState
 
 
 class RandoMap():
     def __init__(self):
         self.tree = Tree()
         self.node_manager = NodeManager()
+        self.map_state = MapState()
 
 
     # -------------------------------------------------------------------------

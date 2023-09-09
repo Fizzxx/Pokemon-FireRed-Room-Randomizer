@@ -1,6 +1,7 @@
 # This file contains map data for rooms used in constructing world layout.
-# Data was systematically ripped from each curr_room's corresponding json files, and reformatted into a dict
-# 	for calculations related to curr_room placement and layout verification.
+# Data was systematically ripped from each curr_room's corresponding json files, 
+#	and reformatted into a dict for calculations related to curr_room placement 
+#	and layout verification.
 # - Kameron Scott, 2021
 
 ROOMS = (

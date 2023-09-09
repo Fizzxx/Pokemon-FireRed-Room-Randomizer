@@ -1,6 +1,7 @@
 from treelib import Tree
 from .rooms import ROOMS
 from .backup_rooms import BACKUPS
+from .connec_node import ConnecNode
 
 
 class MapState:
@@ -224,7 +225,8 @@ class MapState:
             # if leaf is root, it's the only piece of the tree, so it's a dead end
             if leaf.is_root():
                 continue
-            if leaf.data.is_connec:
+            if type(leaf.data) is ConnecNode:
+            # if leaf.data.is_connec:
                 # the other end of the connec exists somewhere
                 if {leaf.data.entry, leaf.data.exit} in self.curr_connecs:
                     leaf.data.is_terminus = True

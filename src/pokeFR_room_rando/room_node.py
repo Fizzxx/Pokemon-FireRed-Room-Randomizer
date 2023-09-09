@@ -1,52 +1,39 @@
-class RoomNode:
-    def __init__(
-            self,
-            room: dict
-    ):
-        self.room = room
-        self.room_id = room['id']
-        self.node_alias = room['alias']
-        self.room_filename = room['file_name']
-        self.key_items = room['key_items']
-        self.warps = room['warps']
-        self.connections = room['connections']
-        self.warp_pairs = []
-        self.is_terminus = False
+from .map_node import MapNode
 
+
+class RoomNode(MapNode):
+    def __init__(self, room: dict):
+        super().__init__()
+        self.room = room
+        self.is_terminus = self.is_room_terminus()
+    
+    @property
+    def room_id(self):
+        return self.room['id']
+    @property
+    def node_alias(self):
+        return self.room['alias']
+    @property
+    def room_filename(self):
+        return self.room['file_name']
+    @property
+    def key_items(self):
+        return self.room['key_items']
+    @property
+    def warps(self):
+        return self.room['warps']
+    @property
+    def connections(self):
+        return self.room['connections']
+
+    def is_room_terminus(self):
         warp_count = 0
-        connec_count = 0
+        connec_count = len(self.connections)
         used_ids = []
         for warp in self.warps:
             if 'pair_id' in warp and warp['pair_id'] not in used_ids:
                 warp_count += 1
                 used_ids.append(warp['pair_id'])
-        for connection in self.connections:
-            if connection[0] is not None:
-                connec_count += 1
         if warp_count + connec_count == 1:
-            self.is_terminus = True
-
-    def add_warp_pair(
-            self,
-            entry_warp: dict,
-            exit_warp: dict,
-            exit_room_warps: tuple
-    ) -> bool:
-        for warp_pair in self.warp_pairs:
-            if entry_warp['pair_id'] == warp_pair[0]['pair_id']:
-                return False
-
-        if entry_warp in self.warps:
-            self.warp_pairs.append((entry_warp, exit_warp))
-            for warp in self.warps:
-                if 'pair_id' in warp and warp != entry_warp:
-                    if warp['pair_id'] == entry_warp['pair_id']:
-                        self.warp_pairs.append((warp, exit_warp))
-            for warp in exit_room_warps:
-                if 'pair_id' in warp and warp != exit_warp:
-                    if warp['pair_id'] == exit_warp['pair_id']:
-                        self.warp_pairs.append((entry_warp, warp))
-        else:
-            print('\n-!- TRIED TO ADD IMPROPER WARP PAIRING\n')
-
-        return True
+            return True
+        return False

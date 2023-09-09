@@ -177,9 +177,9 @@ def build_room(room: dict, debug: bool = False):
 def is_trimmable_warp(
         leaf: Node,
         room_parent: Node
-):
+) -> bool:
     return (
-        leaf.data.is_warp and room_parent.data.is_warp and \
+        (type(leaf.data), type(room_parent.data)) == (WarpNode, WarpNode) and \
         leaf.data.entry['pair_id'] == room_parent.data.exit['pair_id']
     )
 
@@ -189,7 +189,7 @@ def is_trimmable_connec(
         room_parent: Node
 ):
     return (
-        leaf.data.is_connec and room_parent.data.is_connec and \
+        (type(leaf.data), type(room_parent.data)) == (ConnecNode, ConnecNode) and \
         leaf.data.exit == room_parent.data.entry
     )
 
@@ -208,7 +208,7 @@ def trim_room_tree(
             elif debug:
                 print('\tRemoving existing warp:', leaf.data.node_alias)
 
-        elif leaf.data.is_connec and room_parent.data.is_connec:
+        elif (type(leaf.data), type(room_parent.data)) == (ConnecNode, ConnecNode):
             if leaf.data.exit == room_parent.data.entry:
                 if room_tree.remove_node(leaf.identifier) > 1:
                     if debug:
@@ -237,7 +237,7 @@ def create_warp_node(tree: Tree, parent: Node, warp: dict = None):
 def create_connec_node(tree: Tree, parent: Node, connec: tuple, terminus: bool = False):
     tree.create_node(
         tag=f'Direct to {connec[0]}', identifier=node_id.value,
-        data=ConnecNode(connec, entry=parent.data.node_alias, terminus=terminus),
+        data=ConnecNode(connec, entry=parent.data.node_alias),
         parent=parent.identifier
     )
     node_id.increment()

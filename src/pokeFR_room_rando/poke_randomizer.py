@@ -1,5 +1,8 @@
 import random
+
 from .map_state import MapState
+from .warp_node import WarpNode
+from .connec_node import ConnecNode
 from .rooms import ROOMS as ROOMS
 from .backup_rooms import BACKUPS
 from treelib import Tree
@@ -90,7 +93,8 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
                     raise ValueError
 
             elif rooms_in_rando.depth(leaf) % 2 == 1:  # leaf is a WarpNode or ConnecNode
-                if leaf.data.is_warp:  # leaf is a WarpNode; an exit room is randomly selected, and the tree is extended by a subtree with a room as the root.
+                if type(leaf.data) == WarpNode:
+                # if leaf.data.is_warp:  # leaf is a WarpNode; an exit room is randomly selected, and the tree is extended by a subtree with a room as the root.
                     if debug:
                         print('----------------------')
                         print('Processing WARP:', leaf.data.node_alias)
@@ -126,7 +130,6 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
 
                             # The leaf is updated with the selected exit room and exit warp
                             leaf.data.add_exit_warp(exit_warp=exit_warp, exit_room=exit_room)
-                            leaf.data.add_exit_warp_pairs(room=exit_room)
 
                             room_tree = build_room(room=exit_room, debug=debug)  # The subtree is built.
                             trim_room_tree(  # The subtree is trimmed to remove pathways that have already been included in the tree
@@ -149,7 +152,6 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
 
                             # The leaf is updated with the selected exit room and exit warp
                             leaf.data.add_exit_warp(exit_warp=exit_warp, exit_room=exit_room)
-                            leaf.data.add_exit_warp_pairs(room=exit_room)
 
                             room_tree = build_room(room=exit_room, debug=debug)  # The subtree is built.
                             trim_room_tree(  # The subtree is trimmed to remove pathways that have already been included in the tree
@@ -172,7 +174,7 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
                     if room_chosen:
                         rando_updated = True
 
-                elif leaf.data.is_connec:  # leaf is a ConnecNode
+                elif type(leaf.data) is ConnecNode:  # leaf is a ConnecNode
                     if debug:
                         print('----------------------')
                         print('Processing CONNEC:', leaf.data.entry, '->', leaf.data.exit)
@@ -235,7 +237,7 @@ def randomize_game(debug: bool = False, rando_seed: int = random.randrange(99999
         print("Inserting Map Data into Decomp")
         for node in rooms_in_rando.all_nodes():
             if rooms_in_rando.depth(node) % 2 == 1:
-                if node.data.is_warp:
+                if type(node.data) == WarpNode:
                     link_doors(node.data)
         # write final map tree to file named "spoiler_log.txt"
         spoiler_log = open("../../spoiler_log.txt", "w")
