@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pokefr-room-randomizer = {editable = true, path = "."}
 treelib = "*"
 pokefr-room-rando = {editable = true, path = "."}
+python-dotenv = "*"
 
 [dev-packages]
 

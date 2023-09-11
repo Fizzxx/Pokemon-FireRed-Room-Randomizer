@@ -5,12 +5,16 @@ setup.py
 src/pokeFR_room_rando/__init__.py
 src/pokeFR_room_rando/backup_rooms.py
 src/pokeFR_room_rando/connec_node.py
+src/pokeFR_room_rando/map_node.py
 src/pokeFR_room_rando/map_state.py
 src/pokeFR_room_rando/node_id.py
+src/pokeFR_room_rando/node_manager.py
 src/pokeFR_room_rando/poke_randomizer.py
+src/pokeFR_room_rando/rando_map.py
 src/pokeFR_room_rando/rando_utils.py
 src/pokeFR_room_rando/room_node.py
 src/pokeFR_room_rando/rooms.py
+src/pokeFR_room_rando/transition_node.py
 src/pokeFR_room_rando/warp_node.py
 src/pokeFR_room_rando.egg-info/PKG-INFO
 src/pokeFR_room_rando.egg-info/SOURCES.txt
